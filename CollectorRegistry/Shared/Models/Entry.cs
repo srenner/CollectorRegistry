@@ -30,13 +30,13 @@ namespace CollectorRegistry.Shared.Models
 
 
 
-
-
         public string? Owner { get; set; }
         public string? City { get; set; }
         public string? Region { get; set; }
         public string? PostalCode { get; set; }
         public string? Country { get; set; }
+        public decimal? GetLat { get; set; }
+        public decimal? GetLong { get; set; }
 
         public int? Mileage { get; set; }
         public string? Comments { get; set; }
@@ -44,7 +44,7 @@ namespace CollectorRegistry.Shared.Models
 
         public DateTime EntryDateTime { get; set; }
         public DateTime ActualEntryDateTime { get; set; }
-
+        public string? EntryIP { get; set; }
 
         [DefaultValue(false)]
         public bool IsDeleted { get; set; }
