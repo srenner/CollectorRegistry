@@ -1,6 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using System;
 using CollectorRegistry.Server.Models;
+using System.Reflection.Metadata;
 
 namespace CollectorRegistry.Server
 {
@@ -8,5 +9,6 @@ namespace CollectorRegistry.Server
     {
         public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options) : base(options) { }
         public DbSet<Site> Sites { get; set; }
+        public DbSet<Entry> Entries { get; set; }
     }
 }
