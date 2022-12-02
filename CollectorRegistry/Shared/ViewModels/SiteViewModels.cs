@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace CollectorRegistry.Shared.Models
+namespace CollectorRegistry.Shared.ViewModels
 {
-    public class Site
+    public class SiteViewModel
     {
         public int SiteID { get; set; }
         public string Title { get; set; }
