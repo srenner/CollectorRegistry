@@ -2,6 +2,7 @@
 using Microsoft.EntityFrameworkCore;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
+using System.Net;
 
 namespace CollectorRegistry.Server.Models
 {
@@ -53,5 +54,8 @@ namespace CollectorRegistry.Server.Models
 
         [DefaultValue(false)]
         public bool IsDeleted { get; set; }
+
+
+        public List<EntryValue> EntryValues { get; set; }
     }
 }

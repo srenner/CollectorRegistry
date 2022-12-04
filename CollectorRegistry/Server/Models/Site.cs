@@ -26,6 +26,12 @@
 
         #endregion
 
+
+        #region collections
+        
+        public List<EntryDefinition>? EntryDefinitions { get; set; }
+
+        #endregion
     }
 
 
