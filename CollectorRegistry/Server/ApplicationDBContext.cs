@@ -11,6 +11,7 @@ namespace CollectorRegistry.Server
         public DbSet<Site> Sites { get; set; }
         public DbSet<Entry> Entries { get; set; }
         public DbSet<EntryDefinition> EntryDefinitions { get; set; }
+        public DbSet<EntryDefinitionOption> EntryDefinitionsOptions { get; set; }
         public DbSet<EntryValue> EntryValues { get; set; }
     }
 }

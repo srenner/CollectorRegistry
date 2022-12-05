@@ -10,5 +10,7 @@
         public string Label { get; set; }
 
         public int SortOrder { get; set; }
+
+        public List<EntryDefinitionOption> Options { get; set; }
     }
 }

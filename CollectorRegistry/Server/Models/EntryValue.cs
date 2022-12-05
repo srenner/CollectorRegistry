@@ -7,6 +7,7 @@
         public int EntryDefinitionID { get; set; }
         public EntryDefinition EntryDefinition { get; set; }
 
-        public string? Value { get; set; }
+        public int? EntryDefinitionOptionID { get; set; }
+        public EntryDefinitionOption Value { get; set; }
     }
 }
