@@ -13,7 +13,7 @@
         public string? Description { get; set; }
         public string? AboutText { get; set; }
         public string? Logo { get; set; }
-        public string? VinRegex { get; set; }
+        public string? SerialNumberRegex { get; set; }
         #endregion
 
 
