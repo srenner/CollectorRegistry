@@ -10,10 +10,9 @@ namespace CollectorRegistry.Server.Models
     {
         public int EntryID { get; set; }
 
-        public int SiteID { get; set; }
-
+        public int ItemID { get; set; }
         [Required]
-        public Site Site { get; set; }
+        public Item Item { get; set; }
 
         [DefaultValue(true)]
         public bool IsActive { get; set; }
