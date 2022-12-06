@@ -20,15 +20,16 @@
         #region meta
 
         public DateTime CreationDate { get; set; }
-        public bool IsApproved { get;set; }
+        public bool IsApproved { get; set; }
         public bool IsActive { get; set; }
-        public bool IsDeleted { get;set; }
+        public bool IsDeleted { get; set; }
 
         #endregion
 
 
         #region collections
-        
+
+        public List<Item>? Items { get; set; }
         public List<EntryDefinition>? EntryDefinitions { get; set; }
 
         #endregion
