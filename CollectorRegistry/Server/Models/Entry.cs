@@ -16,7 +16,7 @@ namespace CollectorRegistry.Server.Models
         public Site Site { get; set; }
 
         [DefaultValue(true)]
-        public bool OnRoad { get; set; }
+        public bool IsActive { get; set; }
 
         [DefaultValue(false)]
         public bool Deceased { get; set; }
