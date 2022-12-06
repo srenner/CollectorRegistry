@@ -1,9 +1,10 @@
 ﻿@page "/fetchdata"
-@using Microsoft.AspNetCore.Authorization
-@using Microsoft.AspNetCore.Components.WebAssembly.Authentication
+@*@using Microsoft.AspNetCore.Authorization
+@using Microsoft.AspNetCore.Components.WebAssembly.Authentication*@
 @using CollectorRegistry.Shared
-@attribute [Authorize]
+@*@attribute [Authorize]*@
 @inject HttpClient Http
+@inject IHttpClientFactory ClientFactory
 
 <PageTitle>Weather forecast</PageTitle>
 
@@ -47,11 +48,14 @@ else
     {
         try
         {
-            forecasts = await Http.GetFromJsonAsync<WeatherForecast[]>("WeatherForecast");
+            var client = ClientFactory.CreateClient("CollectorRegistry.AnonymousServerAPI");
+            forecasts = await client.GetFromJsonAsync<WeatherForecast[]>("WeatherForecast");
         }
-        catch (AccessTokenNotAvailableException exception)
+        //catch (AccessTokenNotAvailableException exception)
+        catch(Exception exception)
         {
-            exception.Redirect();
+            throw exception;
+            //exception.Redirect();
         }
     }
 }
