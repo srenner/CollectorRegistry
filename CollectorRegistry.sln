@@ -3,11 +3,16 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.4.33110.190
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CollectorRegistry.Server", "CollectorRegistry\Server\CollectorRegistry.Server.csproj", "{9D91CBB1-F9F8-4CAE-AAF1-6BE1DEF3008E}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CollectorRegistry.Server", "CollectorRegistry\Server\CollectorRegistry.Server.csproj", "{9D91CBB1-F9F8-4CAE-AAF1-6BE1DEF3008E}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CollectorRegistry.Client", "CollectorRegistry\Client\CollectorRegistry.Client.csproj", "{32C6E87F-F21A-4FE5-B16A-F454534BBD30}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CollectorRegistry.Client", "CollectorRegistry\Client\CollectorRegistry.Client.csproj", "{32C6E87F-F21A-4FE5-B16A-F454534BBD30}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CollectorRegistry.Shared", "CollectorRegistry\Shared\CollectorRegistry.Shared.csproj", "{24243C24-6A07-49E1-9AD1-CEE6F2933DEC}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CollectorRegistry.Shared", "CollectorRegistry\Shared\CollectorRegistry.Shared.csproj", "{24243C24-6A07-49E1-9AD1-CEE6F2933DEC}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "scripts", "scripts", "{CA353AAA-393D-491D-A87A-A44BAEB8114C}"
+	ProjectSection(SolutionItems) = preProject
+		dev_seed.sql = dev_seed.sql
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
