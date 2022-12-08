@@ -1,6 +1,6 @@
 ﻿namespace CollectorRegistry.Server.Models
 {
-    public class Site
+    public class Site// : IAggregateRoot
     {
         public int SiteID { get; set; }
 

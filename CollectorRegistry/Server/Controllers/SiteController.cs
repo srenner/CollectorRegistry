@@ -1,4 +1,5 @@
 ﻿using CollectorRegistry.Shared.ViewModels;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
@@ -11,8 +12,16 @@ namespace CollectorRegistry.Server.Controllers
     {
         // GET: api/<SiteController>
         [HttpGet]
+        [AllowAnonymous]
         public IEnumerable<SiteViewModel> Get()
         {
+            try
+            {
+                
+            }
+            catch { }
+
+          
             //return new string[] { "value1", "value2" };
             throw new NotImplementedException();
         }
