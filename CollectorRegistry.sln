@@ -11,7 +11,13 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CollectorRegistry.Shared", 
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "scripts", "scripts", "{CA353AAA-393D-491D-A87A-A44BAEB8114C}"
 	ProjectSection(SolutionItems) = preProject
-		dev_seed.sql = dev_seed.sql
+		scripts\dev_seed.sql = scripts\dev_seed.sql
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "doc", "doc", "{C5DC978E-0F7F-4066-9958-AC48D9FF99C7}"
+	ProjectSection(SolutionItems) = preProject
+		doc\devnotes.md = doc\devnotes.md
+		doc\svoregistry_20221202.psql = doc\svoregistry_20221202.psql
 	EndProjectSection
 EndProject
 Global
