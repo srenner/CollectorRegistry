@@ -3,8 +3,9 @@ using Microsoft.EntityFrameworkCore;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using System.Net;
+using CollectorRegistry.Server.Aggregates.ItemAggregate;
 
-namespace CollectorRegistry.Server.Models
+namespace CollectorRegistry.Server.Aggregates.EntryAggregate
 {
     public class Entry
     {
@@ -23,7 +24,7 @@ namespace CollectorRegistry.Server.Models
         [DefaultValue(false)]
         public bool ForSale { get; set; }
 
-        [Precision(12,2)]
+        [Precision(12, 2)]
         public decimal? ListPrice { get; set; }
 
         [Precision(12, 2)]
@@ -37,10 +38,10 @@ namespace CollectorRegistry.Server.Models
         public string? PostalCode { get; set; }
         public string? Country { get; set; }
 
-        [Precision(10,8)]
+        [Precision(10, 8)]
         public decimal? GeoLat { get; set; }
 
-        [Precision(11,8)]
+        [Precision(11, 8)]
         public decimal? GeoLong { get; set; }
 
         public int? Mileage { get; set; }

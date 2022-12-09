@@ -1,4 +1,4 @@
-﻿using CollectorRegistry.Server.Models;
+﻿using CollectorRegistry.Server.Aggregates.SiteAggregate;
 using CollectorRegistry.Server.Repos;
 
 namespace CollectorRegistry.Server.RegistryAggregate

@@ -1,4 +1,6 @@
-﻿namespace CollectorRegistry.Server.Models
+﻿using CollectorRegistry.Server.Aggregates.EntryAggregate;
+using CollectorRegistry.Server.Aggregates.ItemAggregate;
+namespace CollectorRegistry.Server.Aggregates.SiteAggregate
 {
     public class Site// : IAggregateRoot
     {

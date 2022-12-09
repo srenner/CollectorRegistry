@@ -1,4 +1,7 @@
-﻿namespace CollectorRegistry.Server.Models
+﻿using CollectorRegistry.Server.Aggregates.SiteAggregate;
+
+
+namespace CollectorRegistry.Server.Aggregates.EntryAggregate
 {
     public class EntryDefinition
     {
