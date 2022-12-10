@@ -1,9 +1,9 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using System;
 using System.Reflection.Metadata;
-using CollectorRegistry.Server.Aggregates.EntryAggregate;
-using CollectorRegistry.Server.Aggregates.SiteAggregate;
-using CollectorRegistry.Server.Aggregates.ItemAggregate;
+using CollectorRegistry.Server.AggregatesModel.EntryAggregate;
+using CollectorRegistry.Server.AggregatesModel.SiteAggregate;
+using CollectorRegistry.Server.AggregatesModel.ItemAggregate;
 
 namespace CollectorRegistry.Server
 {

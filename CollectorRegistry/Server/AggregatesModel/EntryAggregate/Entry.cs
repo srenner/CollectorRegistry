@@ -3,9 +3,9 @@ using Microsoft.EntityFrameworkCore;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using System.Net;
-using CollectorRegistry.Server.Aggregates.ItemAggregate;
+using CollectorRegistry.Server.AggregatesModel.ItemAggregate;
 
-namespace CollectorRegistry.Server.Aggregates.EntryAggregate
+namespace CollectorRegistry.Server.AggregatesModel.EntryAggregate
 {
     public class Entry : IAggregateRoot
     {

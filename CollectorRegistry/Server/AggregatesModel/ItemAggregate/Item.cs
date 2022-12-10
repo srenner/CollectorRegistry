@@ -1,7 +1,7 @@
-﻿using CollectorRegistry.Server.Aggregates.EntryAggregate;
-using CollectorRegistry.Server.Aggregates.SiteAggregate;
+﻿using CollectorRegistry.Server.AggregatesModel.EntryAggregate;
+using CollectorRegistry.Server.AggregatesModel.SiteAggregate;
 
-namespace CollectorRegistry.Server.Aggregates.ItemAggregate
+namespace CollectorRegistry.Server.AggregatesModel.ItemAggregate
 {
     public class Item : IAggregateRoot
     {

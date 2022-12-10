@@ -1,4 +1,4 @@
-﻿namespace CollectorRegistry.Server.Aggregates.EntryAggregate
+﻿namespace CollectorRegistry.Server.AggregatesModel.EntryAggregate
 {
     public class EntryDefinitionOption
     {
