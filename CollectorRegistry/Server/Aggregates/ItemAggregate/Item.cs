@@ -3,7 +3,7 @@ using CollectorRegistry.Server.Aggregates.SiteAggregate;
 
 namespace CollectorRegistry.Server.Aggregates.ItemAggregate
 {
-    public class Item
+    public class Item : IAggregateRoot
     {
         public int ItemID { get; set; }
 

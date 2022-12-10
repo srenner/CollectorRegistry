@@ -7,7 +7,7 @@ using CollectorRegistry.Server.Aggregates.ItemAggregate;
 
 namespace CollectorRegistry.Server.Aggregates.EntryAggregate
 {
-    public class Entry
+    public class Entry : IAggregateRoot
     {
         public int EntryID { get; set; }
 
