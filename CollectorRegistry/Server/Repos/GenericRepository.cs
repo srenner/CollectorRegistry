@@ -1,4 +1,6 @@
-﻿namespace CollectorRegistry.Server.Repos
+﻿using Microsoft.EntityFrameworkCore;
+
+namespace CollectorRegistry.Server.Repos
 {
     public class GenericRepository : IGenericRepository
     {
@@ -37,5 +39,10 @@
                 throw;
             }
          }
+
+        public async Task<IEnumerable<T>> GetAllEntities<T>() where T : class
+        {
+            return await _context.Set<T>().ToListAsync();
+        }
     }
 }

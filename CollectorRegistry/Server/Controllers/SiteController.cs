@@ -22,16 +22,9 @@ namespace CollectorRegistry.Server.Controllers
         // GET: api/<SiteController>
         [HttpGet]
         [AllowAnonymous]
-        public IEnumerable<SiteViewModel> Get()
+        public async Task<IEnumerable<Site>> Get()
         {
-            try
-            {
-                
-            }
-            catch { }
-
-          
-            //return new string[] { "value1", "value2" };
+            return await _repo.GetAllEntities<Site>();
             throw new NotImplementedException();
         }
 

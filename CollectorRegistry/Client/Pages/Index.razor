@@ -1,33 +1,35 @@
 ﻿@page "/"
 @using CollectorRegistry.Shared
+@using CollectorRegistry.Shared.ViewModels;
 @inject IHttpClientFactory ClientFactory
 
 <PageTitle>Collector Registry</PageTitle>
 
 <h1>Collector Registry</h1>
 
-
-
-
-
-<SurveyPrompt Title="How is Blazor working for you?" />
-
+@if(sites != null) {
+    <ul>
+    @foreach(var site in sites)
+    {
+        <li>@site.Title</li>
+    }
+    </ul>
+    
+}
 
 @code {
-    private WeatherForecast[]? forecasts;
+    private SiteViewModel[]? sites;
 
     protected override async Task OnInitializedAsync()
     {
         try
         {
             var client = ClientFactory.CreateClient("CollectorRegistry.AnonymousServerAPI");
-            forecasts = await client.GetFromJsonAsync<WeatherForecast[]>("WeatherForecast");
+            sites = await client.GetFromJsonAsync<SiteViewModel[]>("api/Site");
         }
-        //catch (AccessTokenNotAvailableException exception)
         catch (Exception exception)
         {
             throw exception;
-            //exception.Redirect();
         }
     }
 }
