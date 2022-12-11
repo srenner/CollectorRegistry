@@ -1,4 +1,6 @@
-﻿using CollectorRegistry.Shared.ViewModels;
+﻿using CollectorRegistry.Server.AggregatesModel.SiteAggregate;
+using CollectorRegistry.Server.Repos;
+using CollectorRegistry.Shared.ViewModels;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
@@ -10,6 +12,13 @@ namespace CollectorRegistry.Server.Controllers
     [ApiController]
     public class SiteController : ControllerBase
     {
+        private readonly IGenericRepository _repo;
+
+        public SiteController(IGenericRepository repo)
+        {
+            _repo = repo;
+        }
+
         // GET: api/<SiteController>
         [HttpGet]
         [AllowAnonymous]
@@ -28,9 +37,9 @@ namespace CollectorRegistry.Server.Controllers
 
         // GET api/<SiteController>/5
         [HttpGet("{id}")]
-        public string Get(int id)
+        public async Task<Site> Get(int id)
         {
-            throw new NotImplementedException();
+            return await _repo.GetEntity<Site>(id);
         }
 
         // POST api/<SiteController>

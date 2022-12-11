@@ -1,4 +1,5 @@
 using CollectorRegistry.Server;
+using CollectorRegistry.Server.Repos;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.ResponseCompression;
@@ -17,6 +18,7 @@ builder.Services.AddDbContext<ApplicationDbContext>(options => {
 
 builder.Services.AddControllersWithViews();
 builder.Services.AddRazorPages();
+builder.Services.AddScoped<IGenericRepository, GenericRepository>();
 #endregion
 
 var app = builder.Build();
