@@ -25,7 +25,6 @@ namespace CollectorRegistry.Server.Controllers
         public async Task<IEnumerable<Site>> Get()
         {
             return await _repo.GetAllEntities<Site>();
-            throw new NotImplementedException();
         }
 
         // GET api/<SiteController>/5
@@ -39,18 +38,21 @@ namespace CollectorRegistry.Server.Controllers
         [HttpPost]
         public void Post([FromBody] string value)
         {
+            throw new NotImplementedException();
         }
 
         // PUT api/<SiteController>/5
         [HttpPut("{id}")]
         public void Put(int id, [FromBody] string value)
         {
+            throw new NotImplementedException();
         }
 
         // DELETE api/<SiteController>/5
         [HttpDelete("{id}")]
         public void Delete(int id)
         {
+            throw new NotImplementedException();
         }
     }
 }
