@@ -1,31 +1,27 @@
-﻿@page "/"
+﻿@page "/site/{id:int}"
 @using CollectorRegistry.Shared
 @using CollectorRegistry.Shared.ViewModels;
 @inject IHttpClientFactory ClientFactory
 
 <PageTitle>Collector Registry</PageTitle>
 
-<h1>Collector Registry</h1>
-
-@if(sites != null) {
-    <ul>
-    @foreach(var site in sites)
-    {
-            string href = "/site/" + site.SiteID.ToString();
-            <li><NavLink href="@href">@site.Title</NavLink></li>
-    }
-    </ul>
+@if (site != null)
+{
+    <h1>@site.Title</h1>
 }
 
 @code {
-    private SiteViewModel[]? sites;
+    private SiteViewModel? site;
+
+    [Parameter]
+    public int id { get; set; }
 
     protected override async Task OnInitializedAsync()
     {
         try
         {
             var client = ClientFactory.CreateClient("CollectorRegistry.AnonymousServerAPI");
-            sites = await client.GetFromJsonAsync<SiteViewModel[]>("api/Site");
+            site = await client.GetFromJsonAsync<SiteViewModel>("api/Site/" + id);
         }
         catch (Exception exception)
         {
