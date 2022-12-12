@@ -55,6 +55,7 @@ namespace CollectorRegistry.Server.AggregatesModel.EntryAggregate
         [DefaultValue(false)]
         public bool IsDeleted { get; set; }
 
+        public int EntryStatusID { get; set; }
 
         public List<EntryValue> EntryValues { get; set; }
     }
