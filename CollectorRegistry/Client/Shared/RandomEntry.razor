@@ -1,10 +1,32 @@
-﻿<div class="alert alert-secondary mt-4">
-    <strong>@SiteID</strong>
+﻿@using CollectorRegistry.Shared.ViewModels;
+@inject IHttpClientFactory ClientFactory
 
+
+<div class="alert alert-secondary mt-4">
     <h3>Here is a random entry for site @SiteID</h3>
+    @if(entry != null)
+    {
+        <p>@entry.Comments</p>
+    }
 </div>
 
 @code {
     [Parameter]
     public int SiteID { get; set; }
+
+    EntryViewModel? entry;
+
+    protected override async Task OnInitializedAsync()
+    {
+        try
+        {
+            var client = ClientFactory.CreateClient("CollectorRegistry.AnonymousServerAPI");
+            entry = await client.GetFromJsonAsync<EntryViewModel>("api/Entry/" + SiteID + "/random");
+        }
+        catch (Exception exception)
+        {
+            throw exception;
+        }
+    }
+
 }
