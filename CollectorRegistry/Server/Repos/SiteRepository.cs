@@ -1,30 +1,29 @@
 ﻿using CollectorRegistry.Server.AggregatesModel.SiteAggregate;
-using CollectorRegistry.Server.Repos;
+using Microsoft.EntityFrameworkCore;
 
 namespace CollectorRegistry.Server.RegistryAggregate
 {
     public class SiteRepository : ISiteRepository
     {
         private readonly ApplicationDbContext _context;
-        //public IUnitOfWork UnitOfWork => _context;
 
         public SiteRepository(ApplicationDbContext context)
         {
             _context = context;
         }
 
-        public Site Add(Site site)
+        public async Task<IEnumerable<Site>> GetSites()
         {
-            throw new NotImplementedException();
-        }
-        public void Update(Site site)
-        {
-            throw new NotImplementedException();
+            return await _context.Sites
+                .Where(w => w.IsActive)
+                .Where(w => w.IsApproved)
+                .Where(w => w.IsDeleted == false)
+                .ToListAsync();
         }
 
-        public async Task<Site> GetAsync(int siteID)
+        public async Task<Site> GetSite(int siteID)
         {
-            throw new NotImplementedException();
+            return await _context.Sites.Where(w => w.SiteID == siteID).FirstOrDefaultAsync();
         }
     }
 }

@@ -1,4 +1,5 @@
 using CollectorRegistry.Server;
+using CollectorRegistry.Server.RegistryAggregate;
 using CollectorRegistry.Server.Repos;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
@@ -19,6 +20,7 @@ builder.Services.AddDbContext<ApplicationDbContext>(options => {
 builder.Services.AddControllersWithViews();
 builder.Services.AddRazorPages();
 builder.Services.AddScoped<IGenericRepository, GenericRepository>();
+builder.Services.AddScoped<ISiteRepository, SiteRepository>();
 builder.Services.AddScoped<IEntryRepository, EntryRepository>();
 
 #endregion

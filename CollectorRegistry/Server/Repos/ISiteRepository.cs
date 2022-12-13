@@ -5,8 +5,7 @@ namespace CollectorRegistry.Server.RegistryAggregate
 {
     public interface ISiteRepository// : IRepository<Site>
     {
-        Site Add(Site site);
-        void Update(Site site);
-        Task<Site> GetAsync(int siteID);
+        Task<IEnumerable<Site>> GetSites();
+        Task<Site> GetSite(int siteID);
     }
 }
