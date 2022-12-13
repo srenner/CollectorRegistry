@@ -19,7 +19,10 @@ namespace CollectorRegistry.Shared.ViewModels
         public bool IsApproved { get; set; }
         public bool IsActive { get; set; }
         public bool IsDeleted { get; set; }
-        
+
+        public string? PrimaryColor { get; set; } = "#202A44";
+        public string? SecondaryColor { get; set; } = "#45411D";
+
         //item viewmodel collection
         //entry definition viewmodel collection
     }

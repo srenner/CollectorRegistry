@@ -7,9 +7,12 @@
 
 @if (site != null)
 {
-    <h1>@site.Title</h1>
+    <div style="border-bottom: 4px solid @site.SecondaryColor">
+    
+        <h1 style="border-bottom: 4px solid @site.PrimaryColor">@site.Title</h1>
 
-    <RandomEntry SiteID=@site.SiteID></RandomEntry>
+        <RandomEntry SiteID=@site.SiteID></RandomEntry>
+    </div>
 }
 
 @code {
