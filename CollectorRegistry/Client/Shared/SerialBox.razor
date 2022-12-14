@@ -7,11 +7,15 @@
     <div>
         <div class="input-group">
             <input class="form-control" placeholder="@Site.SerialNumberHint" @bind="serialSearchText" />
-            <button type="submit" class="btn btn-primary">Go!</button>
+            <button type="submit" class="btn btn-primary" @onclick="FindItem">Go!</button>
         </div>
     </div>
 
     <label>@serialSearchText</label>
+
+    <div>
+        @foundItem
+    </div>
 }
 
 @code {
@@ -21,7 +25,8 @@
     [Parameter]
     public SiteViewModel? Site { get; set; }
 
-    public string serialSearchText = String.Empty;
+    private string serialSearchText = String.Empty;
+    private ItemViewModel? foundItem = null;
 
     protected override async Task OnInitializedAsync()
     {
@@ -34,7 +39,12 @@
 
     private async Task FindItem()
     {
-        await Task.Delay(1000);
+        //await Task.Delay(1000);
+
+        var client = ClientFactory.CreateClient("CollectorRegistry.AnonymousServerAPI");
+        // GET: api/<ItemController>/siteID/find/searchText
+
+        foundItem = await client.GetFromJsonAsync<ItemViewModel>("api/Item/" + SiteID.ToString() + "/find/" + serialSearchText);
 
     }
 }

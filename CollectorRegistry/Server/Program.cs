@@ -22,6 +22,7 @@ builder.Services.AddRazorPages();
 builder.Services.AddScoped<IGenericRepository, GenericRepository>();
 builder.Services.AddScoped<ISiteRepository, SiteRepository>();
 builder.Services.AddScoped<IEntryRepository, EntryRepository>();
+builder.Services.AddScoped<IItemRepository, ItemRepository>();
 
 #endregion
 
