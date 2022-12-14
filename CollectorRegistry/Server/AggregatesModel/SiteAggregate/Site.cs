@@ -18,7 +18,7 @@ namespace CollectorRegistry.Server.AggregatesModel.SiteAggregate
         public string? Logo { get; set; }
         public string? SerialNumberRegex { get; set; }
         public string? SerialNumberLabel { get; set; }
-
+        public string? SerialNumberHint { get; set; }
         public string? PrimaryColor { get; set; } = "#202A44";
         public string? SecondaryColor { get; set; } = "#45411D";
 

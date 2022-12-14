@@ -1,14 +1,26 @@
 ﻿@* Textbox search component to find an item within a site by exact match *@
+@using CollectorRegistry.Shared.ViewModels;
+@inject IHttpClientFactory ClientFactory
 
-<h3>SerialBox</h3>
+@if(Site != null)
+{
+    <input class="form-control" placeholder="@Site.SerialNumberHint" />
+}
 
 @code {
     [Parameter]
     public int SiteID { get; set; }
 
-    
+    [Parameter]
+    public SiteViewModel? Site { get; set; }
+
+
     protected override async Task OnInitializedAsync()
     {
-
+        if(Site == null)
+        {
+            var client = ClientFactory.CreateClient("CollectorRegistry.AnonymousServerAPI");
+            Site = await client.GetFromJsonAsync<SiteViewModel>("api/Site/" + SiteID);
+        }
     }
 }
