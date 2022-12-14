@@ -4,7 +4,14 @@
 
 @if(Site != null)
 {
-    <input class="form-control" placeholder="@Site.SerialNumberHint" />
+    <div>
+        <div class="input-group">
+            <input class="form-control" placeholder="@Site.SerialNumberHint" @bind="serialSearchText" />
+            <button type="submit" class="btn btn-primary">Go!</button>
+        </div>
+    </div>
+
+    <label>@serialSearchText</label>
 }
 
 @code {
@@ -14,6 +21,7 @@
     [Parameter]
     public SiteViewModel? Site { get; set; }
 
+    public string serialSearchText = String.Empty;
 
     protected override async Task OnInitializedAsync()
     {
@@ -22,5 +30,11 @@
             var client = ClientFactory.CreateClient("CollectorRegistry.AnonymousServerAPI");
             Site = await client.GetFromJsonAsync<SiteViewModel>("api/Site/" + SiteID);
         }
+    }
+
+    private async Task FindItem()
+    {
+        await Task.Delay(1000);
+
     }
 }
