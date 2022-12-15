@@ -1,6 +1,8 @@
 ﻿using CollectorRegistry.Server.AggregatesModel.ItemAggregate;
 using CollectorRegistry.Server.RegistryAggregate;
 using CollectorRegistry.Server.Repos;
+using CollectorRegistry.Server.Services;
+using CollectorRegistry.Shared.ResultModels;
 using CollectorRegistry.Shared.ViewModels;
 using Microsoft.AspNetCore.Mvc;
 
@@ -21,9 +23,11 @@ namespace CollectorRegistry.Server.Controllers
 
         // GET: api/<ItemController>/siteID/find/searchText
         [HttpGet("{siteID}/find/{searchText}")]
-        public async Task<Item> FindBySerialNumber(int siteID, string searchText)
+        public async Task<ItemFindResultModel> FindBySerialNumber(int siteID, string searchText)
         {
-            return await _repo.FindItemBySerialNumber(siteID, searchText);
+            var svc = new ItemDataService(_repo, siteID);
+            var result = await svc.FindItemBySerialNumber(searchText);
+            return result;
         }
 
         // GET: api/<ItemController>

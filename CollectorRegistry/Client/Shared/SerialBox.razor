@@ -1,4 +1,5 @@
 ﻿@* Textbox search component to find an item within a site by exact match *@
+@using CollectorRegistry.Shared.ResultModels;
 @using CollectorRegistry.Shared.ViewModels;
 @inject IHttpClientFactory ClientFactory
 
@@ -13,9 +14,27 @@
 
     <label>@serialSearchText</label>
 
-    <div>
-        @foundItem
-    </div>
+    @if(findResult != null)
+    {
+
+        if(findResult.IsFound)
+        {
+            <div>found @findResult.Item.ItemID</div>
+        }
+        else
+        {
+            if(findResult.IsPatternMatch)
+            {
+                <div>did not find item; would you like to add it?</div>
+            }
+            else
+            {
+                <div>invalid</div>
+            }
+        }
+
+    }
+    
 }
 
 @code {
@@ -26,25 +45,21 @@
     public SiteViewModel? Site { get; set; }
 
     private string serialSearchText = String.Empty;
-    private ItemViewModel? foundItem = null;
+    private ItemFindResultModel? findResult = null;
+    private HttpClient anonymousClient = null;
 
     protected override async Task OnInitializedAsync()
     {
+        anonymousClient = ClientFactory.CreateClient("CollectorRegistry.AnonymousServerAPI");
         if(Site == null)
         {
-            var client = ClientFactory.CreateClient("CollectorRegistry.AnonymousServerAPI");
-            Site = await client.GetFromJsonAsync<SiteViewModel>("api/Site/" + SiteID);
+            //var client = ClientFactory.CreateClient("CollectorRegistry.AnonymousServerAPI");
+            Site = await anonymousClient.GetFromJsonAsync<SiteViewModel>("api/Site/" + SiteID);
         }
     }
 
     private async Task FindItem()
     {
-        //await Task.Delay(1000);
-
-        var client = ClientFactory.CreateClient("CollectorRegistry.AnonymousServerAPI");
-        // GET: api/<ItemController>/siteID/find/searchText
-
-        foundItem = await client.GetFromJsonAsync<ItemViewModel>("api/Item/" + SiteID.ToString() + "/find/" + serialSearchText);
-
+        findResult = await anonymousClient.GetFromJsonAsync<ItemFindResultModel>("api/Item/" + SiteID.ToString() + "/find/" + serialSearchText);
     }
 }
