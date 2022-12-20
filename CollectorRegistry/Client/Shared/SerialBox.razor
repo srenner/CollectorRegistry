@@ -5,12 +5,12 @@
 
 @if(Site != null)
 {
-    <div>
+    <form @onsubmit="FindItem">
         <div class="input-group">
             <input class="form-control" placeholder="@Site.SerialNumberHint" @bind="serialSearchText" />
-            <button type="submit" class="btn btn-primary" @onclick="FindItem">Go!</button>
+            <button type="submit" class="btn btn-primary">Go!</button>
         </div>
-    </div>
+    </form>
     @if(findResult != null)
     {
 
