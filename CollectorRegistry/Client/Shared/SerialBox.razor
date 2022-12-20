@@ -28,7 +28,29 @@
             {
 
                 <div>
-                    <p>Invalid entry.</p>
+                    <p>Invalid entry. Here are the basic rules:</p>
+                    <ul>
+                        @if(this.Site.SerialNumberStartsWith?.Length > 0)
+                        {
+                            <li>Starts with @Site.SerialNumberStartsWith</li>
+                        }
+                        @if(this.Site.SerialNumberEndsWith?.Length > 0)
+                        {
+                            <li>Ends with @Site.SerialNumberEndsWith</li>
+                        }
+                        @if(this.Site.SerialNumberMinLength.HasValue)
+                        {
+                            <li>At least @Site.SerialNumberMinLength characters</li>
+                        }
+                        @if(this.Site.SerialNumberMaxLength.HasValue)
+                        {
+                            <li>At most @Site.SerialNumberMaxLength characters</li>
+                        }
+                        @if(this.Site.SerialNumberHint?.Length > 0)
+                        {
+                            <li>Example hint: @Site.SerialNumberHint</li>
+                        }
+                    </ul>
                 </div>
             }
         }
