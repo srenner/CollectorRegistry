@@ -1,6 +1,7 @@
 ﻿using CollectorRegistry.Server.AggregatesModel.SiteAggregate;
 using CollectorRegistry.Server.RegistryAggregate;
 using CollectorRegistry.Server.Repos;
+using CollectorRegistry.Server.Services;
 using CollectorRegistry.Shared.ViewModels;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -25,14 +26,16 @@ namespace CollectorRegistry.Server.Controllers
         [AllowAnonymous]
         public async Task<IEnumerable<Site>> Get()
         {
-            return await _repo.GetSites();
+            var svc = new SiteDataService(_repo);
+            return await svc.GetSites();
         }
 
         // GET api/<SiteController>/5
         [HttpGet("{id}")]
         public async Task<Site> Get(int id)
         {
-            return await _repo.GetSite(id);
+            var svc = new SiteDataService(_repo);
+            return await svc.GetSite(id);
         }
 
         // POST api/<SiteController>

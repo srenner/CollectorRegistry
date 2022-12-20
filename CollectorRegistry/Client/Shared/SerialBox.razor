@@ -11,9 +11,6 @@
             <button type="submit" class="btn btn-primary" @onclick="FindItem">Go!</button>
         </div>
     </div>
-
-    <label>@serialSearchText</label>
-
     @if(findResult != null)
     {
 
@@ -25,11 +22,14 @@
         {
             if(findResult.IsPatternMatch)
             {
-                <div>did not find item; would you like to add it?</div>
+                <div>did not find item. would you like to add it?</div>
             }
             else
             {
-                <div>invalid</div>
+
+                <div>
+                    <p>Invalid entry.</p>
+                </div>
             }
         }
 
@@ -62,4 +62,5 @@
     {
         findResult = await anonymousClient.GetFromJsonAsync<ItemFindResultModel>("api/Item/" + SiteID.ToString() + "/find/" + serialSearchText);
     }
+
 }

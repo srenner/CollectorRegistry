@@ -1,4 +1,5 @@
 ﻿using CollectorRegistry.Server.AggregatesModel.ItemAggregate;
+using CollectorRegistry.Server.ModelExtensions;
 using CollectorRegistry.Server.RegistryAggregate;
 using CollectorRegistry.Server.Repos;
 using CollectorRegistry.Server.Services;
@@ -14,19 +15,38 @@ namespace CollectorRegistry.Server.Controllers
     [ApiController]
     public class ItemController : ControllerBase
     {
-        private readonly IItemRepository _repo;
+        private readonly IItemRepository _itemRepo;
+        private readonly ISiteRepository _siteRepo;
 
-        public ItemController(IItemRepository repo)
+        public ItemController(IItemRepository repo, ISiteRepository siteRepo)
         {
-            _repo = repo;
+            _itemRepo = repo;
+            _siteRepo = siteRepo;
         }
 
         // GET: api/<ItemController>/siteID/find/searchText
         [HttpGet("{siteID}/find/{searchText}")]
         public async Task<ItemFindResultModel> FindBySerialNumber(int siteID, string searchText)
         {
-            var svc = new ItemDataService(_repo, siteID);
-            var result = await svc.FindItemBySerialNumber(searchText);
+            var result = new ItemFindResultModel();
+            var svc = new ItemDataService(_itemRepo, siteID);
+            var item = await svc.FindItemBySerialNumber(searchText);
+            if(item != null)
+            {
+                result.IsFound = true;
+                result.IsPatternMatch = true;
+                result.Item = item.ToViewModel();
+            }
+            else
+            {
+                var siteService = new SiteDataService(_siteRepo);
+
+                var site = await siteService.GetSite(siteID);
+
+                result.IsFound = false;
+                result.IsPatternMatch = site.IsSerialNumberValid(searchText);
+            }
+
             return result;
         }
 

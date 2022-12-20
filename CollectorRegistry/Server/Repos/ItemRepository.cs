@@ -16,6 +16,7 @@ namespace CollectorRegistry.Server.Repos
         public async Task<Item> FindItemBySerialNumber(int siteID, string serialNumberSearch)
         {
             return await _context.Items
+                .Include(i => i.Site)
                 .Where(w => w.SerialNumber == serialNumberSearch)
                 .Where(w => w.SiteID == siteID)
                 .FirstOrDefaultAsync();

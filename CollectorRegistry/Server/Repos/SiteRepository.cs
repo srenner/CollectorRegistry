@@ -14,11 +14,19 @@ namespace CollectorRegistry.Server.RegistryAggregate
 
         public async Task<IEnumerable<Site>> GetSites()
         {
-            return await _context.Sites
-                .Where(w => w.IsActive)
-                .Where(w => w.IsApproved)
-                .Where(w => w.IsDeleted == false)
-                .ToListAsync();
+            try
+            {
+                return await _context.Sites
+                    .Where(w => w.IsActive)
+                    .Where(w => w.IsApproved)
+                    .Where(w => w.IsDeleted == false)
+                    .ToListAsync();
+            }
+            catch (Exception ex)
+            {
+                return null;
+            }
+
         }
 
         public async Task<Site> GetSite(int siteID)

@@ -1,38 +1,32 @@
-﻿using CollectorRegistry.Server.AggregatesModel.SiteAggregate;
+﻿using CollectorRegistry.Server.AggregatesModel.ItemAggregate;
 using CollectorRegistry.Server.ModelExtensions;
+using CollectorRegistry.Server.RegistryAggregate;
 using CollectorRegistry.Server.Repos;
 using CollectorRegistry.Shared.ResultModels;
+using System.Runtime.CompilerServices;
 
 namespace CollectorRegistry.Server.Services
 {
     public class ItemDataService
     {
-
-        private readonly IItemRepository _repo;
+        private readonly IItemRepository _itemRepo;
         private int _siteID = 0;
 
-        public ItemDataService(IItemRepository repo, int siteID)
+        public ItemDataService(IItemRepository itemRepo, int siteID)
         {
-            _repo = repo;
+            _itemRepo = itemRepo;
             _siteID = siteID;
         }
 
-        public async Task<ItemFindResultModel> FindItemBySerialNumber(string searchText)
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="searchText"></param>
+        /// <returns>an Item if found, null if not found</returns>
+        public async Task<Item?> FindItemBySerialNumber(string searchText)
         {
-            var result = new ItemFindResultModel();
-            var item = await _repo.FindItemBySerialNumber(_siteID, searchText);
-            if (item == null)
-            {
-                result.IsFound = false;
-                result.IsPatternMatch = true; //todo
-            }
-            else
-            {
-                result.IsFound = true;
-                result.IsPatternMatch = true;
-                result.Item = item.ToViewModel();
-            }
-            return result;
+            var item = await _itemRepo.FindItemBySerialNumber(_siteID, searchText);
+            return item;
         }
 
     }

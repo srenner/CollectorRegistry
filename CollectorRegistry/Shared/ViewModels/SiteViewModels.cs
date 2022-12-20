@@ -15,6 +15,10 @@ namespace CollectorRegistry.Shared.ViewModels
         public string? AboutText { get; set; }
         public string? Logo { get; set; }
         public string? SerialNumberRegex { get; set; }
+        public int? SerialNumberMinLength { get; set; }
+        public int? SerialNumberMaxLength { get; set; }
+        public string? SerialNumberStartsWith { get; set; }
+        public string? SerialNumberEndsWith { get; set; }
         public string? SerialNumberHint { get; set; }
         public DateTime CreationDate { get; set; }
         public bool IsApproved { get; set; }

@@ -14,5 +14,7 @@ namespace CollectorRegistry.Server.AggregatesModel.ItemAggregate
         public string? Comment { get; set; }
 
         public List<Entry> Entries { get; set; }
+
+
     }
 }
