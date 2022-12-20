@@ -28,6 +28,8 @@ namespace CollectorRegistry.Shared.ViewModels
         public string? PrimaryColor { get; set; } = "#202A44";
         public string? SecondaryColor { get; set; } = "#45411D";
 
+        public string? ItemNickname { get; set; } = "item";
+
         //item viewmodel collection
         //entry definition viewmodel collection
     }

@@ -29,6 +29,8 @@ namespace CollectorRegistry.Server.AggregatesModel.SiteAggregate
         public string? SecondaryColor { get; set; } = "#45411D";
 
 
+        public string? ItemNickname { get; set; } = "item";
+
         #endregion
 
 
