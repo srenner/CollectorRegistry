@@ -20,6 +20,7 @@ namespace CollectorRegistry.Shared.ViewModels
         public string? SerialNumberStartsWith { get; set; }
         public string? SerialNumberEndsWith { get; set; }
         public string? SerialNumberHint { get; set; }
+        public string? SerialNumberLabel { get; set; }
         public DateTime CreationDate { get; set; }
         public bool IsApproved { get; set; }
         public bool IsActive { get; set; }
