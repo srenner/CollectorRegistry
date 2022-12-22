@@ -54,32 +54,35 @@ namespace CollectorRegistry.Server.Controllers
         [HttpGet]
         public IEnumerable<string> Get()
         {
-            return new string[] { "value1", "value2" };
+            throw new NotImplementedException();
         }
 
         // GET api/<ItemController>/5
         [HttpGet("{id}")]
         public string Get(int id)
         {
-            return "value";
+            throw new NotImplementedException();
         }
 
         // POST api/<ItemController>
         [HttpPost]
         public void Post([FromBody] string value)
         {
+            throw new NotImplementedException();
         }
 
         // PUT api/<ItemController>/5
         [HttpPut("{id}")]
         public void Put(int id, [FromBody] string value)
         {
+            throw new NotImplementedException();
         }
 
         // DELETE api/<ItemController>/5
         [HttpDelete("{id}")]
         public void Delete(int id)
         {
+            throw new NotImplementedException();
         }
     }
 }
