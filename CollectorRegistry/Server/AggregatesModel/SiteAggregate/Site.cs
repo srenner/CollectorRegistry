@@ -28,6 +28,7 @@ namespace CollectorRegistry.Server.AggregatesModel.SiteAggregate
         /// </summary>
         public string? AboutText { get; set; }
         public string? Logo { get; set; }
+        [Obsolete("Not currently implemented; use MinLength, MaxLength, StartsWith, EndsWith instead", true)]
         public string? SerialNumberRegex { get; set; }
         
         public int? SerialNumberMinLength { get; set; }
