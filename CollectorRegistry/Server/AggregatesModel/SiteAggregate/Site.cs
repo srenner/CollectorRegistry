@@ -8,12 +8,24 @@ namespace CollectorRegistry.Server.AggregatesModel.SiteAggregate
         public int SiteID { get; set; }
 
         #region required
+        /// <summary>
+        /// Main heading for the site
+        /// </summary>
         public string Title { get; set; }
+        /// <summary>
+        /// Used for the site URL
+        /// </summary>
         public string Subdomain { get; set; }
         #endregion
 
         #region optional
+        /// <summary>
+        /// Short decision for the site's main page
+        /// </summary>
         public string? Description { get; set; }
+        /// <summary>
+        /// Longer version of description for an "About" type of page
+        /// </summary>
         public string? AboutText { get; set; }
         public string? Logo { get; set; }
         public string? SerialNumberRegex { get; set; }
@@ -28,7 +40,9 @@ namespace CollectorRegistry.Server.AggregatesModel.SiteAggregate
         public string? PrimaryColor { get; set; } = "#202A44";
         public string? SecondaryColor { get; set; } = "#45411D";
 
-
+        /// <summary>
+        /// How to refer to a generic version of an item, e.g. "car" or "Goldwing"
+        /// </summary>
         public string? ItemNickname { get; set; } = "item";
 
         #endregion
@@ -51,8 +65,6 @@ namespace CollectorRegistry.Server.AggregatesModel.SiteAggregate
 
         #endregion
 
-
-
         public bool IsSerialNumberValid(string searchText)
         {
             if (searchText == null || searchText.Trim().Length == 0) { return false; }
@@ -66,11 +78,8 @@ namespace CollectorRegistry.Server.AggregatesModel.SiteAggregate
             {
                 if (!searchText.EndsWith(SerialNumberEndsWith)) { return false; }
             }
-
             return true;
         }
-
-
 
     }
 
