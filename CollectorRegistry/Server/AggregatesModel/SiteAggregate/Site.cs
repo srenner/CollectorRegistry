@@ -34,8 +34,8 @@ namespace CollectorRegistry.Server.AggregatesModel.SiteAggregate
         public int? SerialNumberMaxLength { get; set; }
         public string? SerialNumberStartsWith { get; set; }
         public string? SerialNumberEndsWith { get; set; }
-        
-        public string? SerialNumberLabel { get; set; }
+
+        public string? SerialNumberLabel { get; set; } = "VIN";
         public string? SerialNumberHint { get; set; }
         public string? PrimaryColor { get; set; } = "#202A44";
         public string? SecondaryColor { get; set; } = "#45411D";
