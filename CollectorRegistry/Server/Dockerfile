@@ -12,6 +12,8 @@ COPY ["CollectorRegistry/Client/CollectorRegistry.Client.csproj", "CollectorRegi
 COPY ["CollectorRegistry/Shared/CollectorRegistry.Shared.csproj", "CollectorRegistry/Shared/"]
 COPY ["CollectorRegistry/EventBus/EventBus.csproj", "CollectorRegistry/EventBus/"]
 
+
+
 RUN dotnet restore "CollectorRegistry/Server/CollectorRegistry.Server.csproj"
 COPY . .
 WORKDIR "/src/CollectorRegistry/Server"
