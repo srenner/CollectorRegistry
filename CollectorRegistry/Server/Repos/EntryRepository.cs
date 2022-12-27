@@ -28,6 +28,7 @@ namespace CollectorRegistry.Server.Repos
         {
             return await _context.Entries
                 .Include(i => i.EntryValues)
+                .Include(i => i.Item.Site)
                 .Where(w => w.EntryID == entryID)
                 .FirstOrDefaultAsync();
         }
