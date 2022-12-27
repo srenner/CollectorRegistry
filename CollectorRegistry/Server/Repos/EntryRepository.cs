@@ -1,5 +1,6 @@
 ﻿using CollectorRegistry.Server.AggregatesModel.EntryAggregate;
 using Microsoft.EntityFrameworkCore;
+using System.Runtime.CompilerServices;
 
 namespace CollectorRegistry.Server.Repos
 {
@@ -21,6 +22,14 @@ namespace CollectorRegistry.Server.Repos
                     .Where(w => w.EntryStatusID == Enum.EntryStatusEnum.Complete.ID)
                     .Take(1).FirstOrDefaultAsync();
             }
+        }
+
+        public async Task<Entry> GetEntry(int entryID)
+        {
+            return await _context.Entries
+                .Include(i => i.EntryValues)
+                .Where(w => w.EntryID == entryID)
+                .FirstOrDefaultAsync();
         }
     }
 }
