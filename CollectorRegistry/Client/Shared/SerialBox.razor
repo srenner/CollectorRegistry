@@ -33,7 +33,7 @@
         {
             if(findResult.IsPatternMatch)
             {
-                <div>Did not find this @Site.ItemNickname. Would you like to add it? [<button type="button" class="btn btn-link">yes</button>/<button type="button" class="btn btn-link" @onclick="() => { findResult = null; }">no</button>] </div>
+                <div>Did not find this @Site.ItemNickname. Would you like to add it? [<button type="button" class="btn btn-link" @onclick="AddItem">yes</button>/<button type="button" class="btn btn-link" @onclick="() => { findResult = null; }">no</button>] </div>
             }
             else
             {
@@ -98,7 +98,9 @@
 
     private async Task AddItem()
     {
-        throw new NotImplementedException();
+        var postBody = new ItemViewModel { SiteID = SiteID, SerialNumber = serialSearchText };
+        using var response = await anonymousClient.PostAsJsonAsync("api/Item", postBody);
+
     }
 
 }

@@ -22,5 +22,13 @@ namespace CollectorRegistry.Server.Repos
                 .FirstOrDefaultAsync();
         }
 
+        public async Task<Item> Add(int siteID, string serialNumber)
+        {
+            Item item = new Item { SiteID = siteID, SerialNumber = serialNumber };
+
+            await _context.Items.AddAsync(item);
+            await _context.SaveChangesAsync();
+            return item;
+        }
     }
 }

@@ -66,9 +66,13 @@ namespace CollectorRegistry.Server.Controllers
 
         // POST api/<ItemController>
         [HttpPost]
-        public void Post([FromBody] string value)
+        public async Task Post([FromBody] ItemViewModel item)
         {
-            throw new NotImplementedException();
+            if(item.SiteID > 0)
+            {
+                var svc = new ItemDataService(_itemRepo, item.SiteID);
+                await svc.AddItem(item.SerialNumber);
+            }
         }
 
         // PUT api/<ItemController>/5

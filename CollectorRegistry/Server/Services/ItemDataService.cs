@@ -29,5 +29,10 @@ namespace CollectorRegistry.Server.Services
             return item;
         }
 
+        public async Task<Item> AddItem(string serialNumber)
+        {
+            return await _itemRepo.Add(_siteID, serialNumber);
+        }
+
     }
 }
