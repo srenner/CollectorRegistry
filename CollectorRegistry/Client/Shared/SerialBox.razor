@@ -18,13 +18,11 @@
                     <button type="submit" class="btn btn-primary">Go!</button>
                 </div>
             </div>
-            
         </form>
     </div>
 
     @if(findResult != null)
     {
-
         if(findResult.IsFound)
         {
             <div>found @findResult.Item.ItemID</div>
@@ -37,7 +35,6 @@
             }
             else
             {
-
                 <div>
                     <p>Invalid entry. Here are the basic rules:</p>
                     <ul>
@@ -65,9 +62,7 @@
                 </div>
             }
         }
-
     }
-    
 }
 
 @code {
@@ -86,7 +81,6 @@
         anonymousClient = ClientFactory.CreateClient("CollectorRegistry.AnonymousServerAPI");
         if(Site == null)
         {
-            //var client = ClientFactory.CreateClient("CollectorRegistry.AnonymousServerAPI");
             Site = await anonymousClient.GetFromJsonAsync<SiteViewModel>("api/Site/" + SiteID);
         }
     }
@@ -100,7 +94,6 @@
     {
         var postBody = new ItemViewModel { SiteID = SiteID, SerialNumber = serialSearchText };
         using var response = await anonymousClient.PostAsJsonAsync("api/Item", postBody);
-
     }
 
 }
