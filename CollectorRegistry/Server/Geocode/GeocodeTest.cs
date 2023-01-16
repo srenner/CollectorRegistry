@@ -18,6 +18,8 @@ namespace CollectorRegistry.Server.Geocode
             var geocodeOptions = new GeocodeOptions();
             Configuration.GetSection(geocodeOptions.Geocode).Bind(geocodeOptions);
 
+            throw new NotImplementedException();
+
             //return Content($"Title: {geocodeOptions.Title} \n" +
             //               $"Name: {geocodeOptions.Name}");
         }
