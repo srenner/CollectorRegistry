@@ -1,0 +1,17 @@
+syntax = "proto3";
+
+option csharp_namespace = "CollectorRegistry.GeocodeService";
+
+package geocode;
+
+service Geocoder {
+  rpc GetCoordinates (GeocodeRequest) returns (GeocodeReply);
+}
+
+message GeocodeRequest {
+  string name = 1;
+}
+
+message GeocodeReply {
+  string message = 1;
+}
