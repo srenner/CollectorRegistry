@@ -1,13 +1,11 @@
-﻿using Microsoft.AspNetCore.WebUtilities;
-using System;
-using System.Collections;
+﻿using System;
 using System.Collections.Generic;
-using System.Diagnostics.Metrics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.WebUtilities;
 
-namespace CollectorRegistry.Geocode
+namespace CollectorRegistry.GeocodeService
 {
     public class GeocodeService
     {
