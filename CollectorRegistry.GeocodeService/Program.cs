@@ -6,7 +6,7 @@ namespace CollectorRegistry.GeocodeService
     {
         public static async Task Main(string[] args)
         {
-            Console.WriteLine("CollectorRegistry.GeocodeService is starting up");
+            Console.WriteLine("CollectorRegistry.GeocodeService is starting up at " + DateTime.UtcNow.ToLongTimeString() + " UTC");
 
             await CreateHostBuilder(args).Build().RunAsync();
         }
