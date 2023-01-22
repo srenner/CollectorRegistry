@@ -1,10 +1,21 @@
-﻿namespace CollectorRegistry.GeocodeService
+﻿using Microsoft.Extensions.Hosting;
+
+namespace CollectorRegistry.GeocodeService
 {
-    internal class Program
+    public class Program
     {
-        static void Main(string[] args)
+        public static async Task Main(string[] args)
         {
-            Console.WriteLine("Hello, World!");
+            Console.WriteLine("CollectorRegistry.GeocodeService is starting up");
+
+            await CreateHostBuilder(args).Build().RunAsync();
         }
+
+        public static IHostBuilder CreateHostBuilder(string[] args) =>
+            Host.CreateDefaultBuilder(args)
+                .ConfigureServices((hostContext, services) =>
+                {
+                    // 
+                });
     }
 }

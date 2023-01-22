@@ -25,7 +25,7 @@ namespace CollectorRegistry.GeocodeService
 
         }
 
-        public void Fetch(string? city = null, string? state = null, string? postalCode = null, string? country = DEFAULT_COUNTRY)
+        public string BuildURL(string? city = null, string? state = null, string? postalCode = null, string? country = DEFAULT_COUNTRY)
         {
             var query = new Dictionary<string, string>()
 {
@@ -36,6 +36,7 @@ namespace CollectorRegistry.GeocodeService
                 {FORMAT_QUERY, FORMAT }
             };
             string fullURL = QueryHelpers.AddQueryString(BASE_URL, query);
+            return fullURL;
 
         }
     }
