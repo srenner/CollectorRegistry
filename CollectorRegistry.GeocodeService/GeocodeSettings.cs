@@ -15,6 +15,7 @@ namespace CollectorRegistry.GeocodeService
         public string PostalQuery { get; set; }
         public string CountryQuery { get; set; }
         public string DefaultCountry { get; set; }
+        public int RateLimitMillis { get; set; }
 
         public GeocodeSettings Value => throw new NotImplementedException();
     }
