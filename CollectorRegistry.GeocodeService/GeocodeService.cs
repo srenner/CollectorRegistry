@@ -4,38 +4,51 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.WebUtilities;
+using Microsoft.Extensions.Options;
 
 namespace CollectorRegistry.GeocodeService
 {
     public class GeocodeService
     {
-        private const string BASE_URL = "https://nominatim.openstreetmap.org/search.php";
-        private const string CITY_QUERY = "city";
-        private const string REGION_QUERY = "state";
-        private const string POSTAL_QUERY = "postalcode";
-        private const string COUNTRY_QUERY = "country";
-        private const string FORMAT_QUERY = "format";
-
-        private const string FORMAT = "jsonv2";
+        private string _baseURL = "https://nominatim.openstreetmap.org/search.php";
+        private string _cityQuery = "city";
+        private string _regionQuery = "state";
+        private string _postalQuery = "postalcode";
+        private string _countryQuery = "country";
+        private string _formatQuery = "format";
+        private string _format = "jsonv2";
+        
         private const string DEFAULT_COUNTRY = "USA";
+        
+        private IOptions<GeocodeSettings> _settings;
 
-
-        public GeocodeService()
+        public GeocodeService(IOptions<GeocodeSettings> settings)
         {
-
+            _settings = settings;
         }
 
-        public string BuildURL(string? city = null, string? state = null, string? postalCode = null, string? country = DEFAULT_COUNTRY)
+        public void Run()
         {
+            BuildURL();
+        }
+
+        private string GetCoordinates(string url)
+        {
+            return "";
+        }
+        private string BuildURL(string? city = null, string? state = null, string? postalCode = null, string? country = DEFAULT_COUNTRY)
+        {
+
+
             var query = new Dictionary<string, string>()
 {
-                {CITY_QUERY, city },
-                {REGION_QUERY, state },
-                {COUNTRY_QUERY, (country == null || country.Length == 0) ? DEFAULT_COUNTRY : country },
-                {POSTAL_QUERY, postalCode },
-                {FORMAT_QUERY, FORMAT }
+                {_cityQuery, city },
+                {_regionQuery, state },
+                {_countryQuery, (country == null || country.Length == 0) ? DEFAULT_COUNTRY : country },
+                {_postalQuery, postalCode },
+                {_formatQuery, _format }
             };
-            string fullURL = QueryHelpers.AddQueryString(BASE_URL, query);
+            string fullURL = QueryHelpers.AddQueryString(_baseURL, query);
             return fullURL;
 
         }
