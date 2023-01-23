@@ -38,19 +38,17 @@ namespace CollectorRegistry.GeocodeService
         }
         private string BuildURL(string? city = null, string? state = null, string? postalCode = null, string? country = DEFAULT_COUNTRY)
         {
-
-
             var query = new Dictionary<string, string>()
-{
+            {
                 {_cityQuery, city },
                 {_regionQuery, state },
                 {_countryQuery, (country == null || country.Length == 0) ? DEFAULT_COUNTRY : country },
                 {_postalQuery, postalCode },
                 {_formatQuery, _format }
             };
+            
             string fullURL = QueryHelpers.AddQueryString(_baseURL, query);
             return fullURL;
-
         }
     }
 }
