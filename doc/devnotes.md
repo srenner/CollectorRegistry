@@ -20,6 +20,7 @@
   - public parameter starts uppercase
   - no underscores or other conventions you might find in a regular C# class
 - Avoid anemic domain model by putting entity behaviors inside entity class methods whenever possible
+- Database access only from the main Server project
 
 ---
 
