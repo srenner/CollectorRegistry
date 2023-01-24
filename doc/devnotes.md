@@ -24,14 +24,17 @@
 
 ---
 
+## Geocode Message Broker Workflow
+- Main project sends address info to MassTransit
+- Geocode project receives address info from MassTransit
+  - Geocode project hits external API and downloads JSON result
+- Geocode project sends results to MassTransit
+- Main project receives geocode info from MassTransit and writes to database
+
 ## Additional Infrastructure Possibilities
 
-### Observer Pattern
-- For using an event bus between services
-
-### RabbitMQ
-- Geocoder
-- Image Resizer
+### Image Processing
+- Resize, watermark
 
 ### Item search
 - Elasticsearch
