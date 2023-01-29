@@ -29,12 +29,13 @@ namespace CollectorRegistry.GeocodeService
 
         public void Run()
         {
-            BuildURL();
+            var url = BuildURL();
+            throw new NotImplementedException();
         }
 
         private string GetCoordinates(string url)
         {
-            return "";
+            throw new NotImplementedException();
         }
         private string BuildURL(string? city = null, string? state = null, string? postalCode = null, string? country = DEFAULT_COUNTRY)
         {

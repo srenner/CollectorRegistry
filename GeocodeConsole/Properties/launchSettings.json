@@ -1,0 +1,10 @@
+{
+  "profiles": {
+    "GeocodeConsole": {
+      "commandName": "Project"
+    },
+    "Docker": {
+      "commandName": "Docker"
+    }
+  }
+}

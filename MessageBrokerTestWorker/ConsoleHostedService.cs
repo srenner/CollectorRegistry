@@ -7,20 +7,17 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace CollectorRegistry.GeocodeService
+namespace MessageBrokerTestWorker
 {
-
     internal sealed class ConsoleHostedService : IHostedService
     {
         private readonly ILogger _logger;
         private readonly IHostApplicationLifetime _appLifetime;
-        private readonly IOptions<GeocodeSettings> _settings;
 
-        public ConsoleHostedService(ILogger<ConsoleHostedService> logger, IHostApplicationLifetime appLifetime, IOptions<GeocodeSettings> settings)
+        public ConsoleHostedService(ILogger<ConsoleHostedService> logger, IHostApplicationLifetime appLifetime)
         {
             _logger = logger;
             _appLifetime = appLifetime;
-            _settings = settings;
         }
 
         public Task StartAsync(CancellationToken cancellationToken)
@@ -33,7 +30,7 @@ namespace CollectorRegistry.GeocodeService
                 {
                     try
                     {
-                        //_logger.LogInformation("Using API @ " + _settings.Value.BaseURL);
+                        _logger.LogDebug("MessageBrokerTestWorker console service for TEST purposes");
                         while (true)
                         {
                             _logger.LogDebug("Alive at " + DateTime.Now.ToLongTimeString());
@@ -42,6 +39,7 @@ namespace CollectorRegistry.GeocodeService
                     }
                     catch (Exception ex)
                     {
+                        Console.WriteLine(ex.Message);
                         _logger.LogError(ex, "Unhandled exception: " + ex.Message);
                     }
                     finally

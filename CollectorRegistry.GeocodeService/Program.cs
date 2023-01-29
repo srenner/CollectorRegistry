@@ -13,7 +13,7 @@ namespace CollectorRegistry.GeocodeService
     {
         public static async Task Main(string[] args)
         {
-            Console.WriteLine("CollectorRegistry.GeocodeService is starting up at " + DateTime.UtcNow.ToLongTimeString() + " UTC");
+            Console.WriteLine("CollectorRegistry.GeocodeService is starting up at " + DateTime.Now.ToLongTimeString());
 
             await Host.CreateDefaultBuilder(args)
                 .ConfigureServices((hostContext, services) =>
@@ -25,7 +25,7 @@ namespace CollectorRegistry.GeocodeService
                     services.AddOptions();
                 })
                 .RunConsoleAsync();
-            Console.WriteLine("Shutting down at " + DateTime.UtcNow.ToLongTimeString() + " UTC");
+            Console.WriteLine("Shutting down at " + DateTime.Now.ToLongTimeString());
         }
     }
 }
