@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using CollectorRegistry.GeocodeService.Settings;
 using Microsoft.AspNetCore.WebUtilities;
 using Microsoft.Extensions.Options;
 
