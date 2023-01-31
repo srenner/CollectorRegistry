@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace CollectorRegistry.Shared.MessageRecords
 {
-    public record struct GeocodeResult
+    public record struct GeocodeOutput
     {
         public int EntryID { get; set; }
         public decimal GeoLat { get; set; } 

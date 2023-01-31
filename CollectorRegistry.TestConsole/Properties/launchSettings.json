@@ -1,0 +1,10 @@
+{
+  "profiles": {
+    "CollectorRegistry.TestConsole": {
+      "commandName": "Project"
+    },
+    "Docker": {
+      "commandName": "Docker"
+    }
+  }
+}

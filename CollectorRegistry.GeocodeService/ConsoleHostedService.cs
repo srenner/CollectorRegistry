@@ -33,11 +33,11 @@ namespace CollectorRegistry.GeocodeService
                 {
                     try
                     {
-                        //_logger.LogInformation("Using API @ " + _settings.Value.BaseURL);
+                        _logger.LogInformation("Using API @ " + _settings.Value.BaseURL);
                         while (true)
                         {
-                            _logger.LogDebug("Alive at " + DateTime.Now.ToLongTimeString());
-                            await Task.Delay(1000);
+                            //_logger.LogDebug("Alive at " + DateTime.Now.ToLongTimeString());
+                            await Task.Delay(_settings.Value.RateLimitMillis);
                         }
                     }
                     catch (Exception ex)

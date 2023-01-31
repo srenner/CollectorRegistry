@@ -1,0 +1,22 @@
+version: '3.4'
+
+services:
+  collectorregistry.server:
+    image: ${DOCKER_REGISTRY-}collectorregistryserver
+    build:
+      context: .
+      dockerfile: CollectorRegistry/Server/Dockerfile
+
+  collectorregistry.geocodeservice:
+    image: ${DOCKER_REGISTRY-}collectorregistrygeocodeservice
+    build:
+      context: .
+      dockerfile: CollectorRegistry.GeocodeService/Dockerfile
+
+
+  collectorregistry.testconsole:
+    image: ${DOCKER_REGISTRY-}collectorregistrytestconsole
+    build:
+      context: .
+      dockerfile: CollectorRegistry.TestConsole/Dockerfile
+

@@ -32,7 +32,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CollectorRegistry.MessageBr
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CollectorRegistry.GeocodeService", "CollectorRegistry.GeocodeService\CollectorRegistry.GeocodeService.csproj", "{4B0CF337-A976-4D09-ACA2-ADEA69EE0B13}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MessageBrokerTestWorker", "MessageBrokerTestWorker\MessageBrokerTestWorker.csproj", "{6DF9DAEF-841B-4903-98C4-13673E529AC0}"
+Project("{E53339B2-1760-4266-BCC7-CA923CBCF16C}") = "docker-compose", "docker-compose.dcproj", "{321AAA66-2087-46DF-8465-3F26BB8E500D}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CollectorRegistry.TestConsole", "CollectorRegistry.TestConsole\CollectorRegistry.TestConsole.csproj", "{3FBD58E5-E384-4BA1-A007-076AA28FEC3F}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -64,10 +66,14 @@ Global
 		{4B0CF337-A976-4D09-ACA2-ADEA69EE0B13}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{4B0CF337-A976-4D09-ACA2-ADEA69EE0B13}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{4B0CF337-A976-4D09-ACA2-ADEA69EE0B13}.Release|Any CPU.Build.0 = Release|Any CPU
-		{6DF9DAEF-841B-4903-98C4-13673E529AC0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{6DF9DAEF-841B-4903-98C4-13673E529AC0}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{6DF9DAEF-841B-4903-98C4-13673E529AC0}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{6DF9DAEF-841B-4903-98C4-13673E529AC0}.Release|Any CPU.Build.0 = Release|Any CPU
+		{321AAA66-2087-46DF-8465-3F26BB8E500D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{321AAA66-2087-46DF-8465-3F26BB8E500D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{321AAA66-2087-46DF-8465-3F26BB8E500D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{321AAA66-2087-46DF-8465-3F26BB8E500D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3FBD58E5-E384-4BA1-A007-076AA28FEC3F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3FBD58E5-E384-4BA1-A007-076AA28FEC3F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3FBD58E5-E384-4BA1-A007-076AA28FEC3F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3FBD58E5-E384-4BA1-A007-076AA28FEC3F}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
