@@ -1,0 +1,10 @@
+{
+  "profiles": {
+    "CollectorRegistry.GeocodeTestInput": {
+      "commandName": "Project"
+    },
+    "Docker": {
+      "commandName": "Docker"
+    }
+  }
+}
