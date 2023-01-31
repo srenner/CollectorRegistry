@@ -1,4 +1,6 @@
 ﻿using System.Runtime;
+using System.Text;
+using System.Text.Json;
 using CollectorRegistry.Shared.MessageRecords;
 using RabbitMQ.Client;
 
@@ -49,6 +51,13 @@ namespace CollectorRegistry.GeocodeTestInput
                 PostalCode = postalCode
             };
 
+            var message = JsonSerializer.Serialize(record);
+            var body = Encoding.UTF8.GetBytes(message);
+
+            channel.BasicPublish(exchange: string.Empty,
+                                 routingKey: "geocode-input",
+                                 basicProperties: null,
+                                 body: body);
 
         }
     }
