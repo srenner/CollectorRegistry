@@ -20,7 +20,7 @@ namespace CollectorRegistry.TestConsole
                     var config = builder.Build();
                     services.Configure<RabbitMQSettings>(config.GetSection("RabbitMQ"));
                     
-                    services.AddHostedService<ConsoleHostedService>();
+                    //services.AddHostedService<ConsoleHostedService>();
                     services.AddOptions();
                 })
                 .RunConsoleAsync();
