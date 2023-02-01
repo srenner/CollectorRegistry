@@ -41,29 +41,36 @@ namespace CollectorRegistry.GeocodeService
                         _logger.LogInformation("Using API @ " + _settings.Value.BaseURL);
 
                         var factory = new ConnectionFactory { HostName = "rabbit01", VirtualHost = "/", UserName = "guest", Password = "guest", ClientProvidedName = "GeocodeService" };
-                        using var connection = factory.CreateConnection();
-                        using var channel = connection.CreateModel();
-
-                        channel.QueueDeclare(queue: "geocode-input",
-                            durable: true,
-                            exclusive: false,
-                            autoDelete: false,
-                            arguments: null);
-
-                        var consumer = new EventingBasicConsumer(channel);
-                        consumer.Received += (model, ea) =>
+                        using (var connection = factory.CreateConnection())
                         {
-                            var body = ea.Body.ToArray();
-                            var message = Encoding.UTF8.GetString(body);
-                            var inputRecord = JsonSerializer.Deserialize<GeocodeInput>(message);
-                        };
+                            using (var channel = connection.CreateModel())
+                            {
+                                channel.QueueDeclare(queue: "geocode-input",
+                                    durable: true,
+                                    exclusive: false,
+                                    autoDelete: false,
+                                    arguments: null);
 
-                        while (true)
-                        {
-                            channel.BasicConsume(queue: "geocode-input",
-                                                 autoAck: true,
-                                                 consumer: consumer);
-                            await Task.Delay(_settings.Value.RateLimitMillis);
+                                var consumer = new EventingBasicConsumer(channel);
+                                consumer.Received += (model, ea) =>
+                                {
+                                    var body = ea.Body.ToArray();
+                                    var message = Encoding.UTF8.GetString(body);
+                                    var inputRecord = JsonSerializer.Deserialize<GeocodeInput>(message);
+                                };
+
+                                channel.BasicConsume(queue: "geocode-input",
+                                                     autoAck: true,
+                                                     consumer: consumer);
+
+                                while (true)
+                                {
+                                    //channel.BasicConsume(queue: "geocode-input",
+                                    //                     autoAck: true,
+                                    //                     consumer: consumer);
+                                    //await Task.Delay(_settings.Value.RateLimitMillis);
+                                }
+                            }
                         }
                     }
                     catch (Exception ex)
