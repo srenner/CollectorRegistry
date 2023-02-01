@@ -40,7 +40,7 @@ namespace CollectorRegistry.GeocodeService
                     {
                         _logger.LogInformation("Using API @ " + _settings.Value.BaseURL);
 
-                        var factory = new ConnectionFactory { HostName = "rabbit01", VirtualHost = "/", UserName = "guest", Password = "guest" };
+                        var factory = new ConnectionFactory { HostName = "rabbit01", VirtualHost = "/", UserName = "guest", Password = "guest", ClientProvidedName = "GeocodeService" };
                         using var connection = factory.CreateConnection();
                         using var channel = connection.CreateModel();
 
