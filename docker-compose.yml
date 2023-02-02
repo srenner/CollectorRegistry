@@ -1,6 +1,18 @@
 version: '3.4'
+name: CollectorRegistry
+
+networks:
+  default:
+    name: registry-net
 
 services:
+
+  #CollectorRegistry.RabbitMQ:
+  #  image: rabbitmq:3-management-alpine
+  #  ports: 
+  #    - "127.0.0.1:15672:15672"
+  #  hostname: rabbit01
+
   collectorregistry.server:
     image: ${DOCKER_REGISTRY-}collectorregistryserver
     build:
@@ -20,10 +32,10 @@ services:
       context: .
       dockerfile: CollectorRegistry.TestConsole/Dockerfile
 
-
   collectorregistry.geocodetestinput:
     image: ${DOCKER_REGISTRY-}collectorregistrygeocodetestinput
     build:
       context: .
       dockerfile: CollectorRegistry.GeocodeTestInput/Dockerfile
+
 
