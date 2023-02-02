@@ -19,15 +19,16 @@ namespace CollectorRegistry.GeocodeService
     {
         private readonly ILogger _logger;
         private readonly IHostApplicationLifetime _appLifetime;
-        private readonly IOptions<GeocodeSettings> _settings;
+        private readonly IOptions<GeocodeSettings> _geocodeSettings;
+        private readonly IOptions<RabbitMQSettings> _rabbitSettings;
 
-        public ConsoleHostedService(ILogger<ConsoleHostedService> logger, IHostApplicationLifetime appLifetime, IOptions<GeocodeSettings> settings)
+        public ConsoleHostedService(ILogger<ConsoleHostedService> logger, IHostApplicationLifetime appLifetime, IOptions<GeocodeSettings> geocodeSettings, IOptions<RabbitMQSettings> rabbitSettings)
         {
             _logger = logger;
             _appLifetime = appLifetime;
-            _settings = settings;
+            _geocodeSettings = geocodeSettings;
+            _rabbitSettings = rabbitSettings;
         }
-
         public Task StartAsync(CancellationToken cancellationToken)
         {
             _logger.LogDebug($"Starting with arguments: {string.Join(" ", Environment.GetCommandLineArgs())}");
@@ -38,9 +39,16 @@ namespace CollectorRegistry.GeocodeService
                 {
                     try
                     {
-                        _logger.LogInformation("Using API @ " + _settings.Value.BaseURL);
+                        _logger.LogInformation("Using API @ " + _geocodeSettings.Value.BaseURL);
 
-                        var factory = new ConnectionFactory { HostName = "rabbit01", VirtualHost = "/", UserName = "guest", Password = "guest", ClientProvidedName = "GeocodeService" };
+                        var factory = new ConnectionFactory 
+                        { 
+                            HostName = _rabbitSettings.Value.HostName, 
+                            VirtualHost = _rabbitSettings.Value.VirtualHost, 
+                            UserName = _rabbitSettings.Value.Username, 
+                            Password = _rabbitSettings.Value.Password, 
+                            ClientProvidedName = "GeocodeService"
+                        };
                         using (var connection = factory.CreateConnection())
                         {
                             using (var channel = connection.CreateModel())

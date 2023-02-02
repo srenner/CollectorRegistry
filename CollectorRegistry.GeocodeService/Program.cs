@@ -22,6 +22,7 @@ namespace CollectorRegistry.GeocodeService
                     var builder = new ConfigurationBuilder().AddJsonFile($"appsettings.json", true, true);
                     var config = builder.Build();
                     services.Configure<GeocodeSettings>(config.GetSection("GeocodeSettings"));
+                    services.Configure<RabbitMQSettings>(config.GetSection("RabbitMQ"));
                     services.AddHostedService<ConsoleHostedService>();
                     services.AddOptions();
                 })
