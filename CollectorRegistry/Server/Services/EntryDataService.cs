@@ -1,6 +1,8 @@
 ﻿using CollectorRegistry.Server.AggregatesModel.EntryAggregate;
 using CollectorRegistry.Server.RegistryAggregate;
 using CollectorRegistry.Server.Repos;
+using CollectorRegistry.Shared.Geocode;
+using CollectorRegistry.Shared.MessageRecords;
 
 namespace CollectorRegistry.Server.Services
 {
@@ -21,5 +23,18 @@ namespace CollectorRegistry.Server.Services
             return await _repo.GetRandomEntry(_siteID, statusID.Value);
         }
 
+        public async Task UpdateEntryGeocode(GeocodeOutput go)
+        {
+            var entry = await _repo.GetEntry(go.EntryID);
+            if(entry != null)
+            {
+                entry.GeoLat = go.GeoLat;
+                entry.GeoLong = go.GeoLong;
+                entry.GeoDescription = go.GeoDescription;
+                entry.IsGeocoded = true;
+
+                await _repo.UpdateEntry(entry);
+            }
+        }
     }
 }

@@ -1,6 +1,7 @@
 ﻿using CollectorRegistry.Server.AggregatesModel.EntryAggregate;
 using Microsoft.EntityFrameworkCore;
 using System.Runtime.CompilerServices;
+using System.Runtime.Intrinsics.Arm;
 
 namespace CollectorRegistry.Server.Repos
 {
@@ -31,6 +32,13 @@ namespace CollectorRegistry.Server.Repos
                 .Include(i => i.Item.Site)
                 .Where(w => w.EntryID == entryID)
                 .FirstOrDefaultAsync();
+        }
+
+        public async Task<Entry> UpdateEntry(Entry entry)
+        {
+            _context.Update(entry);
+            await _context.SaveChangesAsync();
+            return entry;
         }
     }
 }
