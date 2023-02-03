@@ -1,5 +1,6 @@
 ﻿using CollectorRegistry.GeocodeService.Settings;
 using CollectorRegistry.Shared.MessageRecords;
+using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
@@ -29,6 +30,7 @@ namespace CollectorRegistry.GeocodeService
             _geocodeSettings = geocodeSettings;
             _rabbitSettings = rabbitSettings;
         }
+
         public Task StartAsync(CancellationToken cancellationToken)
         {
             _logger.LogDebug($"Starting with arguments: {string.Join(" ", Environment.GetCommandLineArgs())}");
@@ -41,12 +43,12 @@ namespace CollectorRegistry.GeocodeService
                     {
                         _logger.LogInformation("Using API @ " + _geocodeSettings.Value.BaseURL);
 
-                        var factory = new ConnectionFactory 
-                        { 
-                            HostName = _rabbitSettings.Value.HostName, 
-                            VirtualHost = _rabbitSettings.Value.VirtualHost, 
-                            UserName = _rabbitSettings.Value.Username, 
-                            Password = _rabbitSettings.Value.Password, 
+                        var factory = new ConnectionFactory
+                        {
+                            HostName = _rabbitSettings.Value.HostName,
+                            VirtualHost = _rabbitSettings.Value.VirtualHost,
+                            UserName = _rabbitSettings.Value.Username,
+                            Password = _rabbitSettings.Value.Password,
                             ClientProvidedName = "GeocodeService"
                         };
                         using (var connection = factory.CreateConnection())
@@ -59,27 +61,72 @@ namespace CollectorRegistry.GeocodeService
                                     autoDelete: false,
                                     arguments: null);
 
-                                var consumer = new EventingBasicConsumer(channel);
-                                consumer.Received += (model, ea) =>
-                                {
-                                    var body = ea.Body.ToArray();
-                                    var message = Encoding.UTF8.GetString(body);
-                                    var inputRecord = JsonSerializer.Deserialize<GeocodeInput>(message);
-                                };
+                                var geoService = new GeocodeService(_geocodeSettings.Value);
 
-                                channel.BasicConsume(queue: "geocode-input",
-                                                     autoAck: true,
-                                                     consumer: consumer);
 
+                                //using the pull API to more easily implement rate limiting the external geocode API
+                                //https://www.rabbitmq.com/dotnet-api-guide.html#basic-get
                                 while (true)
                                 {
-                                    //channel.BasicConsume(queue: "geocode-input",
-                                    //                     autoAck: true,
-                                    //                     consumer: consumer);
-                                    //await Task.Delay(_settings.Value.RateLimitMillis);
+                                    BasicGetResult result = channel.BasicGet("geocode-input", false);
+                                    if (result == null)
+                                    {
+                                        // No message available at this time.
+                                    }
+                                    else
+                                    {
+                                        IBasicProperties props = result.BasicProperties;
+                                        ReadOnlyMemory<byte> body = result.Body;
+                                        var message = Encoding.UTF8.GetString(body.Span);
+                                        var inputRecord = JsonSerializer.Deserialize<GeocodeInput>(message);
+
+
+                                        var outputResultList = await geoService.Run(inputRecord.City, inputRecord.Region, inputRecord.PostalCode, inputRecord.Country);
+
+                                        //result is sorted by descending relevance
+                                        //for now we assume the first entry is correct
+                                        //future updates could possibly present the user with a selection list
+                                        
+                                        if (outputResultList.Count > 0)
+                                        {
+                                            var outputResult = outputResultList[0];
+                                            var outputRecord = new GeocodeOutput
+                                            {
+                                                EntryID = inputRecord.EntryID,
+                                                GeoDescription = outputResult.DisplayName,
+                                                GeoLat = outputResult.GeoLat,
+                                                GeoLong = outputResult.GeoLong
+                                            };
+
+                                            message = JsonSerializer.Serialize(outputRecord);
+
+                                            body = Encoding.UTF8.GetBytes(message);
+
+                                            using (var outputChannel = connection.CreateModel())
+                                            {
+                                                outputChannel.QueueDeclare(queue: "geocode-output",
+                                                    durable: true,
+                                                    exclusive: false,
+                                                    autoDelete: false,
+                                                    arguments: null);
+
+                                                outputChannel.BasicPublish(exchange: string.Empty,
+                                                    routingKey: "geocode-output",
+                                                    basicProperties: null,
+                                                    body: body);
+                                            }
+                                        }
+                                        channel.BasicAck(result.DeliveryTag, false);
+                                    }
+
+                                    await Task.Delay(_geocodeSettings.Value.RateLimitMillis);
                                 }
+                               
+
                             }
                         }
+
+
                     }
                     catch (Exception ex)
                     {
@@ -87,6 +134,7 @@ namespace CollectorRegistry.GeocodeService
                     }
                     finally
                     {
+                        _logger.LogDebug("Stopping...");
                         _appLifetime.StopApplication();
                     }
                 });

@@ -1,26 +1,21 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net;
+using System.Net.Http.Headers;
 using System.Text;
 using System.Threading.Tasks;
 using CollectorRegistry.GeocodeService.Settings;
+using CollectorRegistry.Shared.Geocode;
 using Microsoft.AspNetCore.WebUtilities;
+using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
+using Newtonsoft.Json;
 
 namespace CollectorRegistry.GeocodeService
 {
     public class GeocodeService
     {
-        private string _baseURL = "https://nominatim.openstreetmap.org/search.php";
-        private string _cityQuery = "city";
-        private string _regionQuery = "state";
-        private string _postalQuery = "postalcode";
-        private string _countryQuery = "country";
-        private string _formatQuery = "format";
-        private string _format = "jsonv2";
-        
-        private const string DEFAULT_COUNTRY = "USA";
-        
         private IOptions<GeocodeSettings> _settings;
 
         public GeocodeService(IOptions<GeocodeSettings> settings)
@@ -28,28 +23,36 @@ namespace CollectorRegistry.GeocodeService
             _settings = settings;
         }
 
-        public void Run()
+        public async Task<List<GeocodeResult>> Run(string? city, string? state, string? postalCode, string? country)
         {
-            var url = BuildURL();
-            throw new NotImplementedException();
+            var url = BuildURL(city, state, postalCode, country);
+            return await GetCoordinates(url);
         }
 
-        private string GetCoordinates(string url)
+        private async Task<List<GeocodeResult>> GetCoordinates(string url)
         {
-            throw new NotImplementedException();
+
+            HttpClient httpClient = new HttpClient();
+            var request = new HttpRequestMessage(HttpMethod.Get, url);
+            request.Headers.UserAgent.Add(new ProductInfoHeaderValue(".NET", "7.0"));
+            var response = await httpClient.SendAsync(request);
+            var txt = await response.Content.ReadAsStringAsync();
+            return JsonConvert.DeserializeObject<List<GeocodeResult>>(txt);
         }
-        private string BuildURL(string? city = null, string? state = null, string? postalCode = null, string? country = DEFAULT_COUNTRY)
+
+        private string BuildURL(string? city, string? state, string? postalCode, string? country)
         {
             var query = new Dictionary<string, string>()
             {
-                {_cityQuery, city },
-                {_regionQuery, state },
-                {_countryQuery, (country == null || country.Length == 0) ? DEFAULT_COUNTRY : country },
-                {_postalQuery, postalCode },
-                {_formatQuery, _format }
+                {_settings.Value.CityQuery, city },
+                {_settings.Value.RegionQuery, state },
+                {_settings.Value.CountryQuery, (country == null || country.Length == 0) ? _settings.Value.DefaultCountry : country },
+                {_settings.Value.PostalQuery, postalCode },
+                {_settings.Value.FormatQuery, _settings.Value.Format }
             };
             
-            string fullURL = QueryHelpers.AddQueryString(_baseURL, query);
+            string fullURL = QueryHelpers.AddQueryString(_settings.Value.BaseURL, query);
+            Console.WriteLine(fullURL);
             return fullURL;
         }
     }

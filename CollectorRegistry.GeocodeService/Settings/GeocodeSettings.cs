@@ -14,9 +14,12 @@ namespace CollectorRegistry.GeocodeService.Settings
         public string RegionQuery { get; set; }
         public string PostalQuery { get; set; }
         public string CountryQuery { get; set; }
+        public string FormatQuery { get; set; }
+        public string Format { get; set; }
         public string DefaultCountry { get; set; }
         public int RateLimitMillis { get; set; }
 
-        public GeocodeSettings Value => throw new NotImplementedException();
+        //public GeocodeSettings Value => throw new NotImplementedException();
+        public GeocodeSettings Value { get { return this; } }
     }
 }
