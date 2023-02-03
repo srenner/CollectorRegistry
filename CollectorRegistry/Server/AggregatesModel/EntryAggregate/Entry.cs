@@ -43,6 +43,8 @@ namespace CollectorRegistry.Server.AggregatesModel.EntryAggregate
 
         [Precision(11, 8)]
         public decimal? GeoLong { get; set; }
+        public string GeoDescription { get; set; }
+        public bool IsGeocoded { get; set; }
 
         public int? Mileage { get; set; }
         public string? Comments { get; set; }
