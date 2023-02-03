@@ -31,7 +31,6 @@ namespace CollectorRegistry.GeocodeService
 
         private async Task<List<GeocodeResult>> GetCoordinates(string url)
         {
-
             HttpClient httpClient = new HttpClient();
             var request = new HttpRequestMessage(HttpMethod.Get, url);
             request.Headers.UserAgent.Add(new ProductInfoHeaderValue(".NET", "7.0"));
@@ -50,7 +49,6 @@ namespace CollectorRegistry.GeocodeService
                 {_settings.Value.PostalQuery, postalCode },
                 {_settings.Value.FormatQuery, _settings.Value.Format }
             };
-            
             string fullURL = QueryHelpers.AddQueryString(_settings.Value.BaseURL, query);
             Console.WriteLine(fullURL);
             return fullURL;

@@ -63,7 +63,6 @@ namespace CollectorRegistry.GeocodeService
 
                                 var geoService = new GeocodeService(_geocodeSettings.Value);
 
-
                                 //using the pull API to more easily implement rate limiting the external geocode API
                                 //https://www.rabbitmq.com/dotnet-api-guide.html#basic-get
                                 while (true)
@@ -80,13 +79,11 @@ namespace CollectorRegistry.GeocodeService
                                         var message = Encoding.UTF8.GetString(body.Span);
                                         var inputRecord = JsonSerializer.Deserialize<GeocodeInput>(message);
 
-
                                         var outputResultList = await geoService.Run(inputRecord.City, inputRecord.Region, inputRecord.PostalCode, inputRecord.Country);
 
                                         //result is sorted by descending relevance
                                         //for now we assume the first entry is correct
                                         //future updates could possibly present the user with a selection list
-                                        
                                         if (outputResultList.Count > 0)
                                         {
                                             var outputResult = outputResultList[0];
@@ -97,11 +94,8 @@ namespace CollectorRegistry.GeocodeService
                                                 GeoLat = outputResult.GeoLat,
                                                 GeoLong = outputResult.GeoLong
                                             };
-
                                             message = JsonSerializer.Serialize(outputRecord);
-
                                             body = Encoding.UTF8.GetBytes(message);
-
                                             using (var outputChannel = connection.CreateModel())
                                             {
                                                 outputChannel.QueueDeclare(queue: "geocode-output",
@@ -118,15 +112,10 @@ namespace CollectorRegistry.GeocodeService
                                         }
                                         channel.BasicAck(result.DeliveryTag, false);
                                     }
-
                                     await Task.Delay(_geocodeSettings.Value.RateLimitMillis);
                                 }
-                               
-
                             }
                         }
-
-
                     }
                     catch (Exception ex)
                     {
