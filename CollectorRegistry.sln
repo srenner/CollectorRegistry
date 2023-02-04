@@ -36,6 +36,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CollectorRegistry.TestConso
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CollectorRegistry.GeocodeTestInput", "CollectorRegistry.GeocodeTestInput\CollectorRegistry.GeocodeTestInput.csproj", "{E815FBC0-ED3E-4F18-88B5-2D40F926B37B}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CollectorRegistry.DataBridge", "CollectorRegistry.DataBridge\CollectorRegistry.DataBridge.csproj", "{472B674A-16B3-49C2-AEE8-AF66FD78D6D6}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -74,6 +76,10 @@ Global
 		{E815FBC0-ED3E-4F18-88B5-2D40F926B37B}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{E815FBC0-ED3E-4F18-88B5-2D40F926B37B}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{E815FBC0-ED3E-4F18-88B5-2D40F926B37B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{472B674A-16B3-49C2-AEE8-AF66FD78D6D6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{472B674A-16B3-49C2-AEE8-AF66FD78D6D6}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{472B674A-16B3-49C2-AEE8-AF66FD78D6D6}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{472B674A-16B3-49C2-AEE8-AF66FD78D6D6}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

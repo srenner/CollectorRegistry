@@ -39,3 +39,10 @@ services:
       dockerfile: CollectorRegistry.GeocodeTestInput/Dockerfile
 
 
+
+  collectorregistry.databridge:
+    image: ${DOCKER_REGISTRY-}collectorregistrydatabridge
+    build:
+      context: .
+      dockerfile: CollectorRegistry.DataBridge/Dockerfile
+

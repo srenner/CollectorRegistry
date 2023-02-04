@@ -1,0 +1,10 @@
+{
+  "profiles": {
+    "CollectorRegistry.DataBridge": {
+      "commandName": "Project"
+    },
+    "Docker": {
+      "commandName": "Docker"
+    }
+  }
+}
