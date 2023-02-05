@@ -1,4 +1,5 @@
 using CollectorRegistry.Server;
+using CollectorRegistry.Server.gRPC;
 using CollectorRegistry.Server.RegistryAggregate;
 using CollectorRegistry.Server.Repos;
 using Microsoft.AspNetCore.Authentication;
@@ -19,6 +20,27 @@ builder.Services.AddDbContext<ApplicationDbContext>(options => {
 
 builder.Services.AddControllersWithViews();
 builder.Services.AddRazorPages();
+builder.Services.AddGrpc();
+
+//builder.Services.AddGrpc(configureOptions => 
+//{ 
+//    configureOptions.
+//});
+
+//builder.WebHost.UseKestrel();
+
+//builder.WebHost.ConfigureKestrel(options =>
+//{
+//    options.Listen(System.Net.IPAddress.Any, 5001, listenOptions =>
+//    {
+//        listenOptions.Protocols = Microsoft.AspNetCore.Server.Kestrel.Core.HttpProtocols.Http2;
+//    });
+//    options.Listen(System.Net.IPAddress.Any, 55360, listenOptions =>
+//    {
+//        listenOptions.Protocols = Microsoft.AspNetCore.Server.Kestrel.Core.HttpProtocols.Http1AndHttp2;
+//    });
+//});
+
 builder.Services.AddScoped<IGenericRepository, GenericRepository>();
 builder.Services.AddScoped<ISiteRepository, SiteRepository>();
 builder.Services.AddScoped<IEntryRepository, EntryRepository>();
@@ -47,11 +69,24 @@ app.UseStaticFiles();
 
 app.UseRouting();
 
+
+
+app.MapGrpcService<GreeterService>().RequireHost($"*:5001");
+
+app.MapWhen(context => context.Connection.LocalPort == 5001,
+     iab => iab.UseRouting().UseEndpoints(endpoints => endpoints.MapGrpcService<GreeterService>()));
+
+
+
+
 app.UseAuthorization();
 
 
 app.MapRazorPages();
 app.MapControllers();
 app.MapFallbackToFile("index.html");
+
+
+
 
 app.Run();

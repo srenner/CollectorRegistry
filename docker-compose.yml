@@ -15,6 +15,7 @@ services:
 
   collectorregistry.server:
     image: ${DOCKER_REGISTRY-}collectorregistryserver
+    hostname: web01
     build:
       context: .
       dockerfile: CollectorRegistry/Server/Dockerfile
