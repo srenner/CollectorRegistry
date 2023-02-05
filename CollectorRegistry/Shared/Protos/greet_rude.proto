@@ -1,0 +1,15 @@
+﻿syntax = "proto3";
+option csharp_namespace = "CollectorRegistry.Shared.Protos";
+package greet_rude;
+
+service RudeGreeter {
+  rpc BeRude (RudeRequest) returns (RudeReply);
+}
+
+message RudeRequest {
+  string name = 1;
+}
+
+message RudeReply {
+  string message = 1;
+}

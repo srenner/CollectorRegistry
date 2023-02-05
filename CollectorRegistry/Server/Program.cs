@@ -51,9 +51,8 @@ app.UseStaticFiles();
 app.UseRouting();
 
 app.MapGrpcService<GreeterService>().RequireHost($"*:5001");
+app.MapGrpcService<RudeGreeterService>().RequireHost($"*:5001");
 
-//app.MapWhen(context => context.Connection.LocalPort == 5001,
-//     iab => iab.UseRouting().UseEndpoints(endpoints => endpoints.MapGrpcService<GreeterService>()));
 
 app.UseAuthorization();
 

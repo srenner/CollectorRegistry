@@ -12,20 +12,22 @@ namespace CollectorRegistry.DataBridge
         {
             Console.WriteLine("Hello, World!");
 
-            Ping("web01");
+            //Ping("web01");
+            
             AppContext.SetSwitch("System.Net.Http.SocketsHttpHandler.Http2UnencryptedSupport", true);
-
-
-
             var httpHandler = new HttpClientHandler();
             httpHandler.ServerCertificateCustomValidationCallback = HttpClientHandler.DangerousAcceptAnyServerCertificateValidator;
-
 
             using var channel = GrpcChannel.ForAddress("https://web01:5001", new GrpcChannelOptions { HttpHandler = httpHandler });
             var client = new Greeter.GreeterClient(channel);
             var reply = await client.SayHelloAsync(
                               new HelloRequest { Name = "GreeterClient" });
             Console.WriteLine("Greeting: " + reply.Message);
+            
+            var rudeClient = new RudeGreeter.RudeGreeterClient(channel);
+            var rudeReply = await rudeClient.BeRudeAsync(new RudeRequest { Name = "Programmer" });
+            Console.WriteLine("Rude Greeting: " + rudeReply.Message);
+            
             Console.WriteLine("Press any key to exit...");
             Console.ReadKey();
 
