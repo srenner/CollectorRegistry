@@ -9,6 +9,7 @@ The app is developed with rare collector cars in mind, but the registry can also
 - Learn Docker
 - Dip my toes into microservice architecture
 - Learn RabbitMQ
+- Learn gRPC
 - Continue learning Blazor
 - Experiment with combining Blazor and JavaScript in maintainable ways
 - Deploy a .NET project on a Linux server
