@@ -1,0 +1,19 @@
+﻿syntax = "proto3";
+option csharp_namespace = "CollectorRegistry.Shared.Protos";
+package geocode;
+
+service Geocode {
+  rpc UpdateEntry (GeocodeUpdateRequest) returns (GeocodeResponse);
+}
+
+message GeocodeUpdateRequest {
+  int32 entry_id = 1;
+  double geo_lat = 2;
+  double geo_long = 3;
+  string geo_descr = 4;
+
+}
+
+message GeocodeResponse {
+  string message = 1;
+}

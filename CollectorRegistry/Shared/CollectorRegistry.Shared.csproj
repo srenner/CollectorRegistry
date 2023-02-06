@@ -24,6 +24,7 @@
 	<ItemGroup>
 		<Protobuf Include="Protos\greet.proto" />
 		<Protobuf Include="Protos\greet_rude.proto" />
+		<Protobuf Include="Protos\geocode.proto" />
 	</ItemGroup>
 
 
