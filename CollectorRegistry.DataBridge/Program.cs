@@ -19,9 +19,15 @@ namespace CollectorRegistry.DataBridge
             httpHandler.ServerCertificateCustomValidationCallback = HttpClientHandler.DangerousAcceptAnyServerCertificateValidator;
 
             using var channel = GrpcChannel.ForAddress("https://web01:5001", new GrpcChannelOptions { HttpHandler = httpHandler });
-            var client = new Greeter.GreeterClient(channel);
-            var reply = await client.SayHelloAsync(
-                              new HelloRequest { Name = "GreeterClient" });
+            var client = new Geocode.GeocodeClient(channel);
+            /*
+              int32 entry_id = 1;
+              double geo_lat = 2;
+              double geo_long = 3;
+              string geo_descr = 4;
+            */
+            var reply = client.UpdateEntry(
+                              new GeocodeUpdateRequest { EntryId = 1, GeoDescr = "Test", GeoLat = 12.34, GeoLong = 56.78 });
             Console.WriteLine("Greeting: " + reply.Message);
             
             var rudeClient = new RudeGreeter.RudeGreeterClient(channel);

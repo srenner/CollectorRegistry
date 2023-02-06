@@ -52,6 +52,8 @@ app.UseRouting();
 
 app.MapGrpcService<GreeterService>().RequireHost($"*:5001");
 app.MapGrpcService<RudeGreeterService>().RequireHost($"*:5001");
+app.MapGrpcService<GeocodeService>().RequireHost($"*:5001");
+
 
 
 app.UseAuthorization();
