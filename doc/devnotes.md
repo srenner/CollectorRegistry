@@ -3,7 +3,7 @@
 ## Infrastructure Tech
 - C#, .NET 7, Blazor WASM, Entity Framework
 - SQL Server 2022
-- Docker (TBD)
+- Docker
 
 ---
 
@@ -13,6 +13,20 @@
 - All code deployed to Docker containers, targeting Linux
 - Small payloads are sent via RabbitMQ messages
 - __EXAMPLE__: CollectorRegistry.GeocodeService receives input from the message queue, receives data from an external api, and places the resulting data in an output message queue. This allows the microservice to work with any RabbitMQ project that needs geocoding services performed on an address. If the geocoding service goes down or otherwise fails to perform, the impact to the main project is minimal.
+
+---
+
+## Docker containers
+- CollectorRegistry.RabbitMQ
+  - Unmodified container based on rabbitmq:3-management-alpine
+  - Sends small payloads between containers
+- CollectorRegistry.Server
+  - Main web project
+- CollectorRegistry.GeocodeService
+  - Gets latitude/longitude data for a given address
+- CollectorRegistry.DataBridge
+  - Makes gRPC calls to the main project, primarily to make database updates
+
 
 ---
 
