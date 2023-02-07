@@ -30,7 +30,6 @@ namespace CollectorRegistry.DataBridge
             _appLifetime = appLifetime;
             _settings = settings;
 
-
             var factory = new ConnectionFactory
             {
                 HostName = _settings.Value.RabbitMQHostName,
@@ -43,8 +42,6 @@ namespace CollectorRegistry.DataBridge
             _channel = _connection.CreateModel();
             _consumer = new EventingBasicConsumer(_channel);
             _consumer.Received += Consumer_Received;
-
-
         }
 
         public Task StartAsync(CancellationToken cancellationToken)
@@ -64,8 +61,6 @@ namespace CollectorRegistry.DataBridge
                         
                         DeclareQueues(queues);
 
-
-
                         while (!cancellationToken.IsCancellationRequested)
                         {
                             Task.Delay(-1);
@@ -82,18 +77,15 @@ namespace CollectorRegistry.DataBridge
                     }
                 });
             });
-
             return Task.CompletedTask;
         }
 
-
         public Task StopAsync(CancellationToken cancellationToken) => Task.CompletedTask;
-
-
 
         private void OnStopping()
         {
-            // ...
+            _logger.LogDebug("Closing RabbitMQ connection");
+            _connection.Close();
         }
 
         private void OnStopped()
@@ -101,10 +93,8 @@ namespace CollectorRegistry.DataBridge
             // ...
         }
 
-
         private void DeclareQueues(string[] queues)
         {
-
             if(_channel.IsOpen)
             {
                 foreach(string queue in queues)
@@ -116,16 +106,11 @@ namespace CollectorRegistry.DataBridge
                     arguments: null);
                     _channel.BasicConsume(queue, false, _consumer);
                 }
-
-
-                
             }
             else
             {
                 _logger.LogDebug("Cannot declare queues on closed channel");
             }
-
-
         }
 
         protected void Consumer_Received(object? sender, BasicDeliverEventArgs e)
@@ -135,14 +120,12 @@ namespace CollectorRegistry.DataBridge
             _logger.LogDebug("Received from queue: " + queue);
             if (queue == _settings.Value.RabbitMQGeocodeQueue)
             {
-
                 isProcessed = true;
             }
             else
             {
                 _logger.LogDebug("Unknown queue: " + queue);
             }
-
 
             var body = e.Body.ToArray();
             // copy or deserialise the payload
@@ -167,7 +150,6 @@ namespace CollectorRegistry.DataBridge
 
             throw new NotImplementedException();
         }
-
 
     }
 }
