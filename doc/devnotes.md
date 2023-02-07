@@ -7,6 +7,15 @@
 
 ---
 
+## Microservice Infrastructure
+- Services should have minimal dependencies, and not depend on the main CollectorRegistry.Server project if possible
+  - CollectorRegistry.DataBridge is used to send data back to CollectorRegistry.Server via gRPC calls
+- All code deployed to Docker containers, targeting Linux
+- Small payloads are sent via RabbitMQ messages
+- __EXAMPLE__: CollectorRegistry.GeocodeService receives input from the message queue, receives data from an external api, and places the resulting data in an output message queue. This allows the microservice to work with any RabbitMQ project that needs geocoding services performed on an address. If the geocoding service goes down or otherwise fails to perform, the impact to the main project is minimal.
+
+---
+
 ## Design Patterns in use
 - __[Unit of Work](https://martinfowler.com/eaaCatalog/unitOfWork.html)__: Used via Entity Framework. Track changes of multiple database operations and group them in a single database transaction.
 - __[DDD Aggregate](https://martinfowler.com/bliki/DDD_Aggregate.html)__: Do not allow child entities to be updated directly; only via updating the parent (aggregate) entity. I am not using a fully idealized aggregate design in order to maintain code readability 
@@ -23,13 +32,6 @@
 - Database access only from the main Server project
 
 ---
-
-## Geocode Message Broker Workflow
-- Main project sends address info to MassTransit
-- Geocode project receives address info from MassTransit
-  - Geocode project hits external API and downloads JSON result
-- Geocode project sends results to MassTransit
-- Main project receives geocode info from MassTransit and writes to database
 
 ## Additional Infrastructure Possibilities
 
