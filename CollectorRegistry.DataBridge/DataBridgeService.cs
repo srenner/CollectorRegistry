@@ -10,6 +10,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Text.Json;
 using System.Threading.Tasks;
 
 namespace CollectorRegistry.DataBridge
@@ -120,18 +121,19 @@ namespace CollectorRegistry.DataBridge
             _logger.LogDebug("Received from queue: " + queue);
             if (queue == _settings.Value.RabbitMQGeocodeQueue)
             {
+                
+
+                var message = Encoding.UTF8.GetString(e.Body.Span);
+                var outputRecord = JsonSerializer.Deserialize<GeocodeOutput>(message);
+
+
+
                 isProcessed = true;
             }
             else
             {
                 _logger.LogDebug("Unknown queue: " + queue);
             }
-
-            var body = e.Body.ToArray();
-            // copy or deserialise the payload
-            // and process the message
-            // ...
-
             if (isProcessed)
             {
                 _channel.BasicAck(e.DeliveryTag, false);

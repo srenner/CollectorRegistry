@@ -1,4 +1,5 @@
-﻿using CollectorRegistry.Shared.Protos;
+﻿using CollectorRegistry.Server.Repos;
+using CollectorRegistry.Shared.Protos;
 using Grpc.Core;
 
 namespace CollectorRegistry.Server.gRPC
@@ -6,6 +7,8 @@ namespace CollectorRegistry.Server.gRPC
     public class GeocodeService : CollectorRegistry.Shared.Protos.Geocode.GeocodeBase
     {
         private readonly ILogger<GeocodeService> _logger;
+
+        //private readonly IEntryRepository _entryRepository;
 
         public GeocodeService(ILogger<GeocodeService> logger)
         {
