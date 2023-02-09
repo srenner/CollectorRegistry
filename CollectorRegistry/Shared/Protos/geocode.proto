@@ -15,5 +15,6 @@ message GeocodeUpdateRequest {
 }
 
 message GeocodeResponse {
-  string message = 1;
+  bool is_success = 1;
+  string message = 2;
 }

@@ -11,10 +11,10 @@ namespace CollectorRegistry.Shared.Geocode
     public class GeocodeResult
     {
         [JsonProperty("lat")]
-        public decimal? GeoLat { get; set; }
+        public double? GeoLat { get; set; }
 
         [JsonProperty("lon")]
-        public decimal? GeoLong { get; set; }
+        public double? GeoLong { get; set; }
 
         [JsonProperty("display_name")]
         public string? DisplayName { get; set; }

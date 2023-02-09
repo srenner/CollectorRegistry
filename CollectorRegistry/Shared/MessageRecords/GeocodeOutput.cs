@@ -9,8 +9,8 @@ namespace CollectorRegistry.Shared.MessageRecords
     public record struct GeocodeOutput
     {
         public int EntryID { get; set; }
-        public decimal? GeoLat { get; set; } 
-        public decimal? GeoLong { get; set; } 
+        public double? GeoLat { get; set; } 
+        public double? GeoLong { get; set; } 
         public string GeoDescription { get; set; }
     }
 }

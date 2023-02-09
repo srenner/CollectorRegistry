@@ -39,10 +39,10 @@ namespace CollectorRegistry.Server.AggregatesModel.EntryAggregate
         public string? Country { get; set; }
 
         [Precision(10, 8)]
-        public decimal? GeoLat { get; set; }
+        public double? GeoLat { get; set; }
 
         [Precision(11, 8)]
-        public decimal? GeoLong { get; set; }
+        public double? GeoLong { get; set; }
         public string GeoDescription { get; set; }
         public bool IsGeocoded { get; set; }
 
