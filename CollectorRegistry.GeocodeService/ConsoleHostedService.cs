@@ -1,4 +1,5 @@
 ﻿using CollectorRegistry.GeocodeService.Settings;
+using CollectorRegistry.Shared;
 using CollectorRegistry.Shared.MessageRecords;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Hosting;
@@ -41,7 +42,25 @@ namespace CollectorRegistry.GeocodeService
                 {
                     try
                     {
-                        _logger.LogInformation("Using API @ " + _geocodeSettings.Value.BaseURL);
+                        bool canConnect = false;
+                        while (!canConnect)
+                        {
+                            _logger.LogDebug("Pinging " + _rabbitSettings.Value.HostName);
+                            var pingReply = Utility.Ping(_rabbitSettings.Value.HostName);
+                            if(pingReply.Status == System.Net.NetworkInformation.IPStatus.Success)
+                            {
+                                canConnect = true;
+                                _logger.LogDebug("Ping success. Establishing connection with RabbitMQ.");
+                                //todo investigate why we can't connect right away and why recovery fails in this scenario
+                                //possible issue with docker
+                                await Task.Delay(10000);
+                            }
+                            else
+                            {
+                                _logger.LogDebug("Ping failed: " + _rabbitSettings.Value.HostName);
+                                await Task.Delay(5000);
+                            }
+                        }
 
                         var factory = new ConnectionFactory
                         {
@@ -49,10 +68,13 @@ namespace CollectorRegistry.GeocodeService
                             VirtualHost = _rabbitSettings.Value.VirtualHost,
                             UserName = _rabbitSettings.Value.Username,
                             Password = _rabbitSettings.Value.Password,
-                            ClientProvidedName = "GeocodeService"
+                            ClientProvidedName = "GeocodeService",
+                            AutomaticRecoveryEnabled = true
                         };
                         using (var connection = factory.CreateConnection())
                         {
+                            _logger.LogDebug("Connected to " + _rabbitSettings.Value.HostName);
+                            _logger.LogInformation("Using API @ " + _geocodeSettings.Value.BaseURL);
                             using (var channel = connection.CreateModel())
                             {
                                 channel.QueueDeclare(queue: "geocode-input",
