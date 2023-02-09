@@ -1,4 +1,5 @@
-﻿using CollectorRegistry.Shared.MessageRecords;
+﻿using CollectorRegistry.Shared;
+using CollectorRegistry.Shared.MessageRecords;
 using CollectorRegistry.Shared.Protos;
 using Grpc.Net.Client;
 using Microsoft.Extensions.Hosting;
@@ -31,18 +32,7 @@ namespace CollectorRegistry.DataBridge
             _appLifetime = appLifetime;
             _settings = settings;
 
-            var factory = new ConnectionFactory
-            {
-                HostName = _settings.Value.RabbitMQHostName,
-                VirtualHost = _settings.Value.RabbitMQVirtualHost,
-                UserName = _settings.Value.RabbitMQUsername,
-                Password = _settings.Value.RabbitMQPassword,
-                ClientProvidedName = "DataBridge"
-            };
-            _connection = factory.CreateConnection();
-            _channel = _connection.CreateModel();
-            _consumer = new EventingBasicConsumer(_channel);
-            _consumer.Received += Consumer_Received;
+
         }
 
         public Task StartAsync(CancellationToken cancellationToken)
@@ -55,10 +45,49 @@ namespace CollectorRegistry.DataBridge
                 {
                     try
                     {
-                        _logger.LogDebug("StartAsync");
-                        AppContext.SetSwitch("System.Net.Http.SocketsHttpHandler.Http2UnencryptedSupport", true);
                         
-                        string[] queues = { _settings.Value.RabbitMQGeocodeQueue, "test-queue" };
+                        AppContext.SetSwitch("System.Net.Http.SocketsHttpHandler.Http2UnencryptedSupport", true);
+
+                        bool canConnect = false;
+                        while (!canConnect)
+                        {
+                            _logger.LogDebug("Pinging " + _settings.Value.RabbitMQHostName);
+                            var pingReply = Utility.Ping(_settings.Value.RabbitMQHostName);
+                            if (pingReply.Status == System.Net.NetworkInformation.IPStatus.Success)
+                            {
+                                canConnect = true;
+                                _logger.LogDebug("Ping success. Establishing connection with RabbitMQ.");
+                                //todo investigate why we can't connect right away and why recovery fails in this scenario
+                                //possible issue with docker
+                                Task.Delay(10000);
+                            }
+                            else
+                            {
+                                _logger.LogDebug("Ping failed: " + _settings.Value.RabbitMQHostName);
+                                Task.Delay(5000);
+                            }
+                        }
+
+
+                        var factory = new ConnectionFactory
+                        {
+                            HostName = _settings.Value.RabbitMQHostName,
+                            VirtualHost = _settings.Value.RabbitMQVirtualHost,
+                            UserName = _settings.Value.RabbitMQUsername,
+                            Password = _settings.Value.RabbitMQPassword,
+                            ClientProvidedName = "DataBridge"
+                        };
+                        _connection = factory.CreateConnection();
+                        _channel = _connection.CreateModel();
+                        _consumer = new EventingBasicConsumer(_channel);
+                        _consumer.Received += Consumer_Received;
+
+
+
+
+
+
+                        string[] queues = { _settings.Value.RabbitMQGeocodeQueue };
                         
                         DeclareQueues(queues);
 
