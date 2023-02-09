@@ -26,11 +26,11 @@ services:
       dockerfile: CollectorRegistry.GeocodeService/Dockerfile
 
 
-  collectorregistry.testconsole:
-    image: ${DOCKER_REGISTRY-}collectorregistrytestconsole
-    build:
-      context: .
-      dockerfile: CollectorRegistry.TestConsole/Dockerfile
+  #collectorregistry.testconsole:
+  #  image: ${DOCKER_REGISTRY-}collectorregistrytestconsole
+  #  build:
+  #    context: .
+  #    dockerfile: CollectorRegistry.TestConsole/Dockerfile
 
   collectorregistry.geocodetestinput:
     image: ${DOCKER_REGISTRY-}collectorregistrygeocodetestinput
