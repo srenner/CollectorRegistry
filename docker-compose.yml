@@ -1,5 +1,4 @@
 version: '3.4'
-name: CollectorRegistry
 
 networks:
   default:
@@ -7,11 +6,11 @@ networks:
 
 services:
 
-  #CollectorRegistry.RabbitMQ:
-  #  image: rabbitmq:3-management-alpine
-  #  ports: 
-  #    - "127.0.0.1:15672:15672"
-  #  hostname: rabbit01
+  CollectorRegistry.RabbitMQ:
+    image: rabbitmq:3-management-alpine
+    ports: 
+      - "15672:15672"
+    hostname: rabbit01
 
   collectorregistry.server:
     image: ${DOCKER_REGISTRY-}collectorregistryserver
