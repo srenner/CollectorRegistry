@@ -126,8 +126,15 @@ namespace CollectorRegistry.DataBridge
                 var message = Encoding.UTF8.GetString(e.Body.Span);
                 var outputRecord = JsonSerializer.Deserialize<GeocodeOutput>(message);
 
+                var request = new GeocodeUpdateRequest
+                {
+                    EntryId = outputRecord.EntryID,
+                    GeoDescr = outputRecord.GeoDescription,
+                    GeoLat = outputRecord.GeoLat.GetValueOrDefault(),
+                    GeoLong = outputRecord.GeoLong.GetValueOrDefault()
+                };
 
-
+                UnaryGeocodeUpdate(request);
                 isProcessed = true;
             }
             else
@@ -140,17 +147,14 @@ namespace CollectorRegistry.DataBridge
             }
         }
 
-        private void UnaryGeocodeUpdate()
+        private void UnaryGeocodeUpdate(GeocodeUpdateRequest request)
         {
             var httpHandler = new HttpClientHandler();
             httpHandler.ServerCertificateCustomValidationCallback = HttpClientHandler.DangerousAcceptAnyServerCertificateValidator;
             using var channel = GrpcChannel.ForAddress(_settings.Value.gRPCAddress, new GrpcChannelOptions { HttpHandler = httpHandler });
             var client = new Geocode.GeocodeClient(channel);
-            var reply = client.UpdateEntry(
-                              new GeocodeUpdateRequest { EntryId = 1, GeoDescr = "Test", GeoLat = 12.34, GeoLong = 56.78 });
-            Console.WriteLine("Test: " + reply.Message);
-
-            throw new NotImplementedException();
+            var reply = client.UpdateEntry(request);
+            _logger.LogDebug("Message from geocode gRPC call: " + reply.Message.ToString());
         }
 
     }
