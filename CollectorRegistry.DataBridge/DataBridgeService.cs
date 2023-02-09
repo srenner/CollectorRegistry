@@ -41,7 +41,7 @@ namespace CollectorRegistry.DataBridge
             _appLifetime.ApplicationStopped.Register(OnStopped);
             _appLifetime.ApplicationStarted.Register(() =>
             {
-                Task.Run( () =>
+                Task.Run( async () =>
                 {
                     try
                     {
@@ -59,12 +59,12 @@ namespace CollectorRegistry.DataBridge
                                 _logger.LogDebug("Ping success. Establishing connection with RabbitMQ.");
                                 //todo investigate why we can't connect right away and why recovery fails in this scenario
                                 //possible issue with docker
-                                Task.Delay(10000);
+                                await Task.Delay(10000);
                             }
                             else
                             {
                                 _logger.LogDebug("Ping failed: " + _settings.Value.RabbitMQHostName);
-                                Task.Delay(5000);
+                                await Task.Delay(5000);
                             }
                         }
 

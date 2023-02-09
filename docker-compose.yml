@@ -13,6 +13,11 @@ services:
     hostname: rabbit01
     networks: 
       - registry-net
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:15672"]
+      interval: 30s
+      timeout: 10s
+      retries: 5
 
   collectorregistry.server:
     image: ${DOCKER_REGISTRY-}collectorregistryserver
@@ -31,23 +36,6 @@ services:
       context: .
       dockerfile: CollectorRegistry.GeocodeService/Dockerfile
 
-
-  #collectorregistry.testconsole:
-  #  image: ${DOCKER_REGISTRY-}collectorregistrytestconsole
-  #  build:
-  #    context: .
-  #    dockerfile: CollectorRegistry.TestConsole/Dockerfile
-
-  collectorregistry.geocodetestinput:
-    image: ${DOCKER_REGISTRY-}collectorregistrygeocodetestinput
-    networks: 
-      - registry-net
-    build:
-      context: .
-      dockerfile: CollectorRegistry.GeocodeTestInput/Dockerfile
-
-
-
   collectorregistry.databridge:
     image: ${DOCKER_REGISTRY-}collectorregistrydatabridge
     networks: 
@@ -56,3 +44,23 @@ services:
       context: .
       dockerfile: CollectorRegistry.DataBridge/Dockerfile
 
+
+
+
+  # this helps with development debugging as needed but won't be in final product
+  # -----------------------------------------------------------------------------
+  #collectorregistry.testconsole:
+  #  image: ${DOCKER_REGISTRY-}collectorregistrytestconsole
+  #  build:
+  #    context: .
+  #    dockerfile: CollectorRegistry.TestConsole/Dockerfile
+
+  # we can create test input directly from rabbitmq webui instead of this container
+  # -------------------------------------------------------------------------------
+  #collectorregistry.geocodetestinput:
+  #  image: ${DOCKER_REGISTRY-}collectorregistrygeocodetestinput
+  #  networks: 
+  #    - registry-net
+  #  build:
+  #    context: .
+  #    dockerfile: CollectorRegistry.GeocodeTestInput/Dockerfile
