@@ -19,6 +19,16 @@ services:
       timeout: 10s
       retries: 5
 
+  CollectorRegistry.Mongo:
+    image: mongo
+    restart: always
+    hostname: mongo01
+    networks: 
+      - registry-net
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: root
+      MONGO_INITDB_ROOT_PASSWORD: example
+
   collectorregistry.server:
     image: ${DOCKER_REGISTRY-}collectorregistryserver
     hostname: web01
