@@ -1,8 +1,8 @@
 version: '3.4'
 
 networks:
-  default:
-    name: registry-net
+  # The presence of these objects is sufficient to define them
+  registry-net: {}
 
 services:
 
@@ -11,16 +11,22 @@ services:
     ports: 
       - "15672:15672"
     hostname: rabbit01
+    networks: 
+      - registry-net
 
   collectorregistry.server:
     image: ${DOCKER_REGISTRY-}collectorregistryserver
     hostname: web01
+    networks: 
+      - registry-net
     build:
       context: .
       dockerfile: CollectorRegistry/Server/Dockerfile
 
   collectorregistry.geocodeservice:
     image: ${DOCKER_REGISTRY-}collectorregistrygeocodeservice
+    networks: 
+      - registry-net
     build:
       context: .
       dockerfile: CollectorRegistry.GeocodeService/Dockerfile
@@ -34,6 +40,8 @@ services:
 
   collectorregistry.geocodetestinput:
     image: ${DOCKER_REGISTRY-}collectorregistrygeocodetestinput
+    networks: 
+      - registry-net
     build:
       context: .
       dockerfile: CollectorRegistry.GeocodeTestInput/Dockerfile
@@ -42,6 +50,8 @@ services:
 
   collectorregistry.databridge:
     image: ${DOCKER_REGISTRY-}collectorregistrydatabridge
+    networks: 
+      - registry-net
     build:
       context: .
       dockerfile: CollectorRegistry.DataBridge/Dockerfile
