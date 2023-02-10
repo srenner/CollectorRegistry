@@ -2,7 +2,6 @@
 using CollectorRegistry.Server.RegistryAggregate;
 using CollectorRegistry.Server.Repos;
 using CollectorRegistry.Shared.Geocode;
-using CollectorRegistry.Shared.MessageRecords;
 
 namespace CollectorRegistry.Server.Services
 {

@@ -1,5 +1,5 @@
 ﻿using CollectorRegistry.Shared;
-using CollectorRegistry.Shared.MessageRecords;
+using CollectorRegistry.Shared.Geocode;
 using CollectorRegistry.Shared.Protos;
 using Grpc.Net.Client;
 using Microsoft.Extensions.Hosting;
