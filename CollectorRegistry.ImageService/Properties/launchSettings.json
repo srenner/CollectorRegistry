@@ -1,0 +1,10 @@
+{
+  "profiles": {
+    "CollectorRegistry.ImageService": {
+      "commandName": "Project"
+    },
+    "Docker": {
+      "commandName": "Docker"
+    }
+  }
+}

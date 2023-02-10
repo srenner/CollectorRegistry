@@ -1,4 +1,5 @@
 version: '3.4'
+name: CollectorRegistry
 
 networks:
   # The presence of these objects is sufficient to define them
@@ -60,6 +61,15 @@ services:
       context: .
       dockerfile: CollectorRegistry.DataBridge/Dockerfile
 
+  collectorregistry.imageservice:
+    image: ${DOCKER_REGISTRY-}collectorregistryimageservice
+    networks: 
+      - registry-net
+    volumes:
+      - CollectorRegistry.UserUploads:/uploads
+    build:
+      context: .
+      dockerfile: CollectorRegistry.ImageService/Dockerfile
 
 
 
@@ -80,3 +90,5 @@ services:
   #  build:
   #    context: .
   #    dockerfile: CollectorRegistry.GeocodeTestInput/Dockerfile
+
+
