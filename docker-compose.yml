@@ -4,6 +4,10 @@ networks:
   # The presence of these objects is sufficient to define them
   registry-net: {}
 
+volumes:
+  CollectorRegistry.UserUploads:
+    external: true
+
 services:
 
   CollectorRegistry.RabbitMQ:
@@ -34,6 +38,8 @@ services:
     hostname: web01
     networks: 
       - registry-net
+    volumes:
+      - CollectorRegistry.UserUploads:/uploads
     build:
       context: .
       dockerfile: CollectorRegistry/Server/Dockerfile
