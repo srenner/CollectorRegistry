@@ -26,6 +26,14 @@
   - Gets latitude/longitude data for a given address
 - CollectorRegistry.DataBridge
   - Makes gRPC calls to the main project, primarily to make database updates
+- CollectorRegistry.ImageService
+  - Input from RabbitMQ: { "photoID": 1, "filePath": "/path/to/file.jpg", "watermarkText": "CollectorRegistry.com", "watermarkLogo": "/path/to/logo.jpg" }
+  - Output to RabbitMQ: { "photoID": 1, "isProcessed": True }
+  - Multiple resize
+    - 1500px max width OR height for desktop
+    - 900px max width OR height for mobile
+    - thumbnail images...250px?
+  - Watermark text and/or logo
 
 
 ---
