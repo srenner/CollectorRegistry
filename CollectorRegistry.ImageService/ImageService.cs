@@ -25,8 +25,6 @@ namespace CollectorRegistry.ImageService
         {
             _logger = logger;
             _appLifetime = appLifetime;
-
-
         }
 
         public Task StartAsync(CancellationToken cancellationToken)
@@ -39,10 +37,7 @@ namespace CollectorRegistry.ImageService
                 {
                     try
                     {
-
                         AppContext.SetSwitch("System.Net.Http.SocketsHttpHandler.Http2UnencryptedSupport", true);
-                        
-
 
                         while (!cancellationToken.IsCancellationRequested)
                         {
@@ -74,8 +69,5 @@ namespace CollectorRegistry.ImageService
         {
             // ...
         }
-
-
-
     }
 }
