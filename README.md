@@ -7,7 +7,7 @@ The app is developed with rare collector cars in mind, but the registry can also
 ## Tech goals
 - Learn what's new in .NET 7
 - Learn Docker
-- Dip my toes into microservice architecture
+- Implement a microservice architecture
 - Learn RabbitMQ
 - Learn gRPC
 - Continue learning Blazor

@@ -15,4 +15,4 @@ The app is developed with rare collector cars in mind, but the registry can also
 - Deploy a .NET project on a Linux server
 
 ## Useful links
-- [gRPC on .NET](https://github.com/grpc/grpc-dotnet)
+- [gRPC for .NET](https://github.com/grpc/grpc-dotnet)
