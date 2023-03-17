@@ -14,5 +14,9 @@ The app is developed with rare collector cars in mind, but the registry can also
 - Experiment with combining Blazor and JavaScript in maintainable ways
 - Deploy a .NET project on a Linux server
 
+## High Level Architecture
+
+![Architecture Diagram](doc/Architecture.drawio.png)
+
 ## Useful links
 - [gRPC for .NET](https://github.com/grpc/grpc-dotnet)

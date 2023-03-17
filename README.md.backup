@@ -7,12 +7,16 @@ The app is developed with rare collector cars in mind, but the registry can also
 ## Tech goals
 - Learn what's new in .NET 7
 - Learn Docker
-- Dip my toes into microservice architecture
+- Implement a microservice architecture
 - Learn RabbitMQ
 - Learn gRPC
 - Continue learning Blazor
 - Experiment with combining Blazor and JavaScript in maintainable ways
 - Deploy a .NET project on a Linux server
+
+## High Level Architecture
+
+!(doc/Architecture.drawio.png)
 
 ## Useful links
 - [gRPC for .NET](https://github.com/grpc/grpc-dotnet)
