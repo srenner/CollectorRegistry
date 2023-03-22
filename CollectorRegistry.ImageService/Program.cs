@@ -4,6 +4,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using System.Net.NetworkInformation;
 using System.Text;
+using CollectorRegistry.ImageService.Settings;
 
 namespace CollectorRegistry.ImageService
 {
@@ -18,7 +19,8 @@ namespace CollectorRegistry.ImageService
                  {
                      var builder = new ConfigurationBuilder().AddJsonFile($"appsettings.json", true, true);
                      var config = builder.Build();
-                     //services.Configure<ConnectionSettings>(config.GetSection("ConnectionSettings"));
+                     services.Configure<RabbitMQSettings>(config.GetSection("RabbitMQ"));
+                     services.Configure<ImagesSettings>(config.GetSection("Images"));
                      services.AddHostedService<ImageService>();
                      services.AddOptions();
                  })
