@@ -1,7 +1,6 @@
 ﻿using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
-using RabbitMQ.Client;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -33,28 +32,7 @@ namespace CollectorRegistry.TestConsole
                 {
                     try
                     {
-                        var factory = new ConnectionFactory { HostName = _settings.Value.HostName, VirtualHost = _settings.Value.VirtualHost, UserName = _settings.Value.Username, Password = _settings.Value.Password };
-                        using var connection = factory.CreateConnection();
-                        using var channel = connection.CreateModel();
-
-                        channel.QueueDeclare(queue: _settings.Value.HeartbeatQueue,
-                                             durable: false,
-                                             exclusive: false,
-                                             autoDelete: false,
-                                             arguments: null);
-
-
-                        while (true)
-                        {
-                            var message = DateTime.Now.ToString("F");
-                            var body = Encoding.UTF8.GetBytes(message);
-
-                            channel.BasicPublish(exchange: string.Empty,
-                                                 routingKey: _settings.Value.HeartbeatQueue,
-                                                 basicProperties: null,
-                                                 body: body);
-                            await Task.Delay(1000);
-                        }
+                        //
                     }
                     catch (Exception ex)
                     {
