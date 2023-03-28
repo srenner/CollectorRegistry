@@ -64,6 +64,38 @@ namespace CollectorRegistry.ImageService
                                 await Task.Delay(5000);
                             }
                         }
+                        var factory = new ConnectionFactory
+                        {
+                            HostName = _rabbitSettings.Value.HostName,
+                            VirtualHost = _rabbitSettings.Value.VirtualHost,
+                            UserName = _rabbitSettings.Value.Username,
+                            Password = _rabbitSettings.Value.Password,
+                            ClientProvidedName = "ImageService",
+                            AutomaticRecoveryEnabled = true
+                        };
+                        using (var connection = factory.CreateConnection())
+                        {
+                            _logger.LogDebug("Connected to " + _rabbitSettings.Value.HostName);
+                            using (var channel = connection.CreateModel())
+                            {
+                                channel.QueueDeclare(queue: "image-input",
+                                    durable: true,
+                                    exclusive: false,
+                                    autoDelete: false,
+                                    arguments: null);
+
+
+                                //using the pull API to more easily implement rate limiting the external geocode API
+                                //https://www.rabbitmq.com/dotnet-api-guide.html#basic-get
+                                while (true)
+                                {
+
+                                }
+                            }
+                        }
+
+
+
 
 
 
