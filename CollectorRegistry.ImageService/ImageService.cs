@@ -84,24 +84,12 @@ namespace CollectorRegistry.ImageService
                                     autoDelete: false,
                                     arguments: null);
 
-
-                                //using the pull API to more easily implement rate limiting the external geocode API
                                 //https://www.rabbitmq.com/dotnet-api-guide.html#basic-get
                                 while (true)
                                 {
 
                                 }
                             }
-                        }
-
-
-
-
-
-
-                        while (!cancellationToken.IsCancellationRequested)
-                        {
-                            Task.Delay(-1);
                         }
                     }
                     catch (Exception ex)
