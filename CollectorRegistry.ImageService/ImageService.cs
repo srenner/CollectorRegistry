@@ -84,9 +84,21 @@ namespace CollectorRegistry.ImageService
                                     autoDelete: false,
                                     arguments: null);
 
-                                //https://www.rabbitmq.com/dotnet-api-guide.html#basic-get
                                 while (true)
                                 {
+
+                                    var consumer = new EventingBasicConsumer(channel);
+                                    consumer.Received += (ch, ea) =>
+                                    {
+                                        ReadOnlyMemory<byte> body = ea.Body;
+                                        var message = Encoding.UTF8.GetString(body.Span);
+                                        _logger.LogDebug(message);
+                                        channel.BasicAck(ea.DeliveryTag, false);
+                                    };
+                                    // this consumer tag identifies the subscription
+                                    // when it has to be cancelled
+                                    string consumerTag = channel.BasicConsume("image-input", false, consumer);
+
 
                                 }
                             }
