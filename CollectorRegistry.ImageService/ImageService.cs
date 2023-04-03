@@ -96,12 +96,9 @@ namespace CollectorRegistry.ImageService
                                 // when it has to be cancelled
                                 string consumerTag = channel.BasicConsume("image-input", false, consumer);
 
-                                while (true)
+                                while (!cancellationToken.IsCancellationRequested)
                                 {
-
-                                    Thread.Sleep(1000);
-
-
+                                    await Task.Delay(-1);
                                 }
                             }
                         }

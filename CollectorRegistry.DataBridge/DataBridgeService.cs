@@ -22,10 +22,6 @@ namespace CollectorRegistry.DataBridge
         private readonly IHostApplicationLifetime _appLifetime;
         private readonly IOptions<ConnectionSettings> _settings;
 
-        private IModel _channel;
-        private IConnection _connection;
-        private EventingBasicConsumer _consumer;
-
         public DataBridgeService(ILogger<DataBridgeService> logger, IHostApplicationLifetime appLifetime, IOptions<ConnectionSettings> settings)
         {
             _logger = logger;
@@ -37,7 +33,11 @@ namespace CollectorRegistry.DataBridge
 
         public Task StartAsync(CancellationToken cancellationToken)
         {
-            _appLifetime.ApplicationStopping.Register(OnStopping);
+            _appLifetime.ApplicationStopping.Register(() =>
+            {
+                _logger.LogDebug("Closing RabbitMQ connection");
+            });
+
             _appLifetime.ApplicationStopped.Register(OnStopped);
             _appLifetime.ApplicationStarted.Register(() =>
             {
@@ -45,7 +45,7 @@ namespace CollectorRegistry.DataBridge
                 {
                     try
                     {
-                        
+
                         AppContext.SetSwitch("System.Net.Http.SocketsHttpHandler.Http2UnencryptedSupport", true);
 
                         bool canConnect = false;
@@ -77,23 +77,67 @@ namespace CollectorRegistry.DataBridge
                             Password = _settings.Value.RabbitMQPassword,
                             ClientProvidedName = "DataBridge"
                         };
-                        _connection = factory.CreateConnection();
-                        _channel = _connection.CreateModel();
-                        _consumer = new EventingBasicConsumer(_channel);
-                        _consumer.Received += Consumer_Received;
 
 
+                        using (var connection = factory.CreateConnection())
+                        {
+                            _logger.LogDebug("Connected to " + _settings.Value.RabbitMQHostName);
+                            using (var channel = connection.CreateModel())
+                            {
+                                var consumer = new EventingBasicConsumer(channel);
+                                consumer.Received += (sender, e) => {
+                                    string queue = e.RoutingKey;
+                                    bool isProcessed = false;
+                                    _logger.LogDebug("Received from queue: " + queue);
+                                    if (queue == _settings.Value.RabbitMQGeocodeQueue)
+                                    {
+                                        var message = Encoding.UTF8.GetString(e.Body.Span);
+                                        var outputRecord = JsonSerializer.Deserialize<GeocodeOutput>(message);
 
+                                        var request = new GeocodeUpdateRequest
+                                        {
+                                            EntryId = outputRecord.EntryID,
+                                            GeoDescr = outputRecord.GeoDescription,
+                                            GeoLat = outputRecord.GeoLat.GetValueOrDefault(),
+                                            GeoLong = outputRecord.GeoLong.GetValueOrDefault()
+                                        };
 
+                                        UnaryGeocodeUpdate(request);
+                                        isProcessed = true;
+                                    }
+                                    else
+                                    {
+                                        _logger.LogDebug("Unknown queue: " + queue);
+                                    }
+                                    if (isProcessed)
+                                    {
+                                        channel.BasicAck(e.DeliveryTag, false);
+                                    }
 
-
-                        string[] queues = { _settings.Value.RabbitMQGeocodeQueue };
-                        
-                        DeclareQueues(queues);
+                                };
+                                string[] queues = { _settings.Value.RabbitMQGeocodeQueue };
+                                if (channel.IsOpen)
+                                {
+                                    foreach (string queue in queues)
+                                    {
+                                        channel.QueueDeclare(queue: queue,
+                                        durable: true,
+                                        exclusive: false,
+                                        autoDelete: false,
+                                        arguments: null);
+                                        channel.BasicConsume(queue, false, consumer);
+                                    }
+                                }
+                                else
+                                {
+                                    _logger.LogDebug("Cannot declare queues on closed channel");
+                                }
+                            }
+                        }
 
                         while (!cancellationToken.IsCancellationRequested)
                         {
-                            Task.Delay(-1);
+                            await Task.Delay(-1);
                         }
                     }
                     catch (Exception ex)
@@ -112,69 +156,13 @@ namespace CollectorRegistry.DataBridge
 
         public Task StopAsync(CancellationToken cancellationToken) => Task.CompletedTask;
 
-        private void OnStopping()
-        {
-            _logger.LogDebug("Closing RabbitMQ connection");
-            _connection.Close();
-        }
 
         private void OnStopped()
         {
             // ...
         }
 
-        private void DeclareQueues(string[] queues)
-        {
-            if(_channel.IsOpen)
-            {
-                foreach(string queue in queues)
-                {
-                    _channel.QueueDeclare(queue: queue,
-                    durable: true,
-                    exclusive: false,
-                    autoDelete: false,
-                    arguments: null);
-                    _channel.BasicConsume(queue, false, _consumer);
-                }
-            }
-            else
-            {
-                _logger.LogDebug("Cannot declare queues on closed channel");
-            }
-        }
 
-        protected void Consumer_Received(object? sender, BasicDeliverEventArgs e)
-        {
-            string queue = e.RoutingKey;
-            bool isProcessed = false;
-            _logger.LogDebug("Received from queue: " + queue);
-            if (queue == _settings.Value.RabbitMQGeocodeQueue)
-            {
-                
-
-                var message = Encoding.UTF8.GetString(e.Body.Span);
-                var outputRecord = JsonSerializer.Deserialize<GeocodeOutput>(message);
-
-                var request = new GeocodeUpdateRequest
-                {
-                    EntryId = outputRecord.EntryID,
-                    GeoDescr = outputRecord.GeoDescription,
-                    GeoLat = outputRecord.GeoLat.GetValueOrDefault(),
-                    GeoLong = outputRecord.GeoLong.GetValueOrDefault()
-                };
-
-                UnaryGeocodeUpdate(request);
-                isProcessed = true;
-            }
-            else
-            {
-                _logger.LogDebug("Unknown queue: " + queue);
-            }
-            if (isProcessed)
-            {
-                _channel.BasicAck(e.DeliveryTag, false);
-            }
-        }
 
         private void UnaryGeocodeUpdate(GeocodeUpdateRequest request)
         {
