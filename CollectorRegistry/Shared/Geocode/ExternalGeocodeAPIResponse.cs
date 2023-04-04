@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace CollectorRegistry.Shared.Geocode
 {
-    public class GeocodeResult
+    public class ExternalGeocodeAPIResponse
     {
         [JsonProperty("lat")]
         public double? GeoLat { get; set; }

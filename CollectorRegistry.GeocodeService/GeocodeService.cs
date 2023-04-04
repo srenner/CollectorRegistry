@@ -23,20 +23,20 @@ namespace CollectorRegistry.GeocodeService
             _settings = settings;
         }
 
-        public async Task<List<GeocodeResult>> Run(string? city, string? state, string? postalCode, string? country)
+        public async Task<List<ExternalGeocodeAPIResponse>> Run(string? city, string? state, string? postalCode, string? country)
         {
             var url = BuildURL(city, state, postalCode, country);
             return await GetCoordinates(url);
         }
 
-        private async Task<List<GeocodeResult>> GetCoordinates(string url)
+        private async Task<List<ExternalGeocodeAPIResponse>> GetCoordinates(string url)
         {
             HttpClient httpClient = new HttpClient();
             var request = new HttpRequestMessage(HttpMethod.Get, url);
             request.Headers.UserAgent.Add(new ProductInfoHeaderValue(".NET", "7.0"));
             var response = await httpClient.SendAsync(request);
             var txt = await response.Content.ReadAsStringAsync();
-            return JsonConvert.DeserializeObject<List<GeocodeResult>>(txt);
+            return JsonConvert.DeserializeObject<List<ExternalGeocodeAPIResponse>>(txt);
         }
 
         private string BuildURL(string? city, string? state, string? postalCode, string? country)

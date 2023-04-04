@@ -56,6 +56,6 @@ using Stream data = client.OpenRead(fullURL);
 using StreamReader reader = new StreamReader(data);
 string s = reader.ReadToEnd();
 
-var result = JsonConvert.DeserializeObject<List<GeocodeResult>>(s);
+var result = JsonConvert.DeserializeObject<List<ExternalGeocodeAPIResponse>>(s);
 
 Console.WriteLine(result.ToString());
