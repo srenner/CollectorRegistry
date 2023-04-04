@@ -4,15 +4,8 @@ Multi tenant automotive registry site using Blazor WebAssembly and SQL Server. I
 
 The app is developed with rare collector cars in mind, but the registry can also be used to host other collectibles. The primary requirement for a registry site is to have items with unique serial numbers. The registry is particularly useful to check the ownership history of a specific item you are looking to buy.
 
-## Tech goals
-- Learn what's new in .NET 7
-- Learn Docker
-- Implement a microservice architecture
-- Learn RabbitMQ
-- Learn gRPC
-- Continue learning Blazor
-- Experiment with combining Blazor and JavaScript in maintainable ways
-- Deploy a .NET project on a Linux server
+## Tech in use
+C#, .NET 7, SQL Server, Blazor, Docker, Microservices, RabbitMQ, gRPC, Linux
 
 ## High Level Architecture
 
