@@ -1,6 +1,7 @@
 ﻿using CollectorRegistry.GeocodeService.Settings;
 using CollectorRegistry.Shared;
 using CollectorRegistry.Shared.Geocode;
+using CollectorRegistry.Shared.MessageQueue;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;

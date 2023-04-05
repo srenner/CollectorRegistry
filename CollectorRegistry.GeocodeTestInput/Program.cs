@@ -1,7 +1,7 @@
 ﻿using System.Runtime;
 using System.Text;
 using System.Text.Json;
-using CollectorRegistry.Shared.Geocode;
+using CollectorRegistry.Shared.MessageQueue;
 using RabbitMQ.Client;
 
 namespace CollectorRegistry.GeocodeTestInput

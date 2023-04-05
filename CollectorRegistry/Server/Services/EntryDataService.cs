@@ -1,7 +1,7 @@
 ﻿using CollectorRegistry.Server.AggregatesModel.EntryAggregate;
 using CollectorRegistry.Server.RegistryAggregate;
 using CollectorRegistry.Server.Repos;
-using CollectorRegistry.Shared.Geocode;
+using CollectorRegistry.Shared.MessageQueue;
 
 namespace CollectorRegistry.Server.Services
 {

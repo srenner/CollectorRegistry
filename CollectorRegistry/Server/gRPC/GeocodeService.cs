@@ -22,7 +22,7 @@ namespace CollectorRegistry.Server.gRPC
             string message = DateTime.Now.ToString();
 
             var svc = new EntryDataService(_entryRepository, -1);
-            await svc.UpdateEntryGeocode(new Shared.Geocode.GeocodeOutput
+            await svc.UpdateEntryGeocode(new Shared.MessageQueue.GeocodeOutput
             {
                 EntryID = request.EntryId,
                 GeoDescription = request.GeoDescr,

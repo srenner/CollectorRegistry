@@ -4,8 +4,11 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace CollectorRegistry.Shared.Geocode
+namespace CollectorRegistry.Shared.MessageQueue
 {
+    /// <summary>
+    /// Maps to the message queue named geocode-output
+    /// </summary>
     public record struct GeocodeOutput
     {
         public int EntryID { get; set; }
