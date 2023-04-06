@@ -1,0 +1,44 @@
+﻿@* Admin UI card to add/edit a site *@
+
+@using CollectorRegistry.Shared.ResultModels;
+@using CollectorRegistry.Shared.ViewModels;
+@inject IHttpClientFactory ClientFactory
+
+<div>
+
+
+    <div class="card">
+        <div class="card-header">
+            <span>Site: @Site?.Title</span>
+        </div>
+        <div class="card-body">
+            <h5 class="card-title">Special title treatment</h5>
+            <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
+
+            <div>
+
+                <div class="mb-3">
+                    <label for="siteTitle" class="form-label">Site Title</label>
+                    <input type="text" class="form-control" id="siteTitle" placeholder="Title">
+                </div>
+
+                <div class="mb-3">
+                    <label for="siteSubdomain" class="form-label">Subdomain</label>
+                    <input type="text" class="form-control" id="siteSubdomain" placeholder="Subdomain">
+                </div>
+            </div>
+
+            <a href="#" class="btn btn-primary">Go somewhere</a>
+        </div>
+    </div>
+
+
+</div>
+
+@code {
+    [Parameter]
+    public int? SiteID { get; set; }
+
+    [Parameter]
+    public SiteViewModel? Site { get; set; }
+}

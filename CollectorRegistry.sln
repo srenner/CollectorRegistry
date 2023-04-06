@@ -38,7 +38,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CollectorRegistry.GeocodeTe
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CollectorRegistry.DataBridge", "CollectorRegistry.DataBridge\CollectorRegistry.DataBridge.csproj", "{472B674A-16B3-49C2-AEE8-AF66FD78D6D6}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CollectorRegistry.ImageService", "CollectorRegistry.ImageService\CollectorRegistry.ImageService.csproj", "{A74202F8-32AF-4909-8A31-5CE3D23C1215}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CollectorRegistry.ImageService", "CollectorRegistry.ImageService\CollectorRegistry.ImageService.csproj", "{A74202F8-32AF-4909-8A31-5CE3D23C1215}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
