@@ -19,27 +19,118 @@
             {
             <div>
 
-                <div class="mb-3">
-                    <label for="siteTitle" class="form-label">Site Title</label>
-                    <InputText class="form-control" id="siteTitle" @bind-Value="Site.Title" placeholder="Site Title"></InputText>
+                <div class="row mb-3">
+                    <div class="col-md-6">
+                        <label for="siteTitle" class="form-label">Site Title</label>
+                        <InputText class="form-control" id="siteTitle" @bind-Value="Site.Title" placeholder="Site Title"></InputText>
+                    </div>
+                    <div class="col-md-6">
+                        <label for="siteSubdomain" class="form-label">Subdomain</label>
+                        <InputText disabled="disabled" class="form-control" id="siteSubdomain" @bind-Value="Site.Subdomain"></InputText>
+                    </div>
                 </div>
 
-                <div class="mb-3">
-                    Logo picker
+                <div class="row mb-3">
+                    <div class="col-md-12">
+                        <label for="siteDescription" class="form-label">Description <span class="small">(0/300)</span> </label>
+                        <InputTextArea class="form-control" id="siteDescription" @bind-Value="Site.Description" placeholder="Short Site Description (1 or 2 sentences)" maxlength="300"></InputTextArea>
+                    </div>
                 </div>
+
+                <div class="row mb-3">
+                    <div class="col-md-12">
+                            <label for="siteAbout" class="form-label">About Page Text <span class="small">(0/5000)</span></label>
+                        <InputTextArea class="form-control" id="siteAbout" @bind-Value="Site.AboutText" placeholder="About this site..." maxlength="5000"></InputTextArea>
+                    </div>
+                </div>
+
+
+
+
+
+                <section>
+                    <h5 class="card-title">Serial Numbers</h5>
+
+
+                        <div class="row">
+                            <div class="col-md-6">
+                                <label for="serialStartsWith" class="form-label">Starts With</label>
+                                <InputText class="form-control" id="serialStartsWith" @bind-Value="Site.SerialNumberStartsWith" placeholder="(start)"></InputText>
+                            </div>
+                            <div class="col-md-6">
+                                <label for="serialEndsWith" class="form-label">Ends With</label>
+                                <InputText class="form-control" id="serialEndsWith" @bind-Value="Site.SerialNumberEndsWith" placeholder="(end)"></InputText>
+                            </div>
+                        </div>
+                        
+
+                </section>
+
+
+
+
+
+
+
+
+
+
+                <div class="row">
+                    <div class="col-md-12">
+
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-12">
+
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-12">
+
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-12">
+
+                    </div>
+                </div>
+                    <div class="row">
+                        <div class="col-md-12">
+                        </div>
+                    </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
                 <div class="mb-3 d-none">
-                    <label for="siteSubdomain" class="form-label">Subdomain</label>
-                    <InputText class="form-control" id="siteSubdomain" @bind-Value="Site.Subdomain" placeholder="Subdomain"></InputText>
+
                 </div>
                 <div class="mb-3">
-                    <label for="siteDescription" class="form-label">Description</label>
-                    <InputTextArea class="form-control" id="siteDescription" @bind-Value="Site.Description" placeholder="Short Site Description"></InputTextArea>
+
                 </div>
                 <div class="mb-3">
-                    <label for="siteAbout" class="form-label">"About" Text</label>
-                    <InputTextArea class="form-control" id="siteAbout" @bind-Value="Site.AboutText" placeholder="About this site..."></InputTextArea>
+
                 </div>
                 
                 <hr>
