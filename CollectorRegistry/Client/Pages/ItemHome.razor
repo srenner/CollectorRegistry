@@ -1,0 +1,39 @@
+﻿@page "/site/{siteID:int}/item/{itemID:int}"
+@using CollectorRegistry.Shared
+@using CollectorRegistry.Shared.ViewModels;
+@inject IHttpClientFactory ClientFactory
+
+<PageTitle>Item Page</PageTitle>
+
+@if (item != null)
+{
+        <div style="border-bottom: 4px solid @site.SecondaryColor">
+
+            <h1 style="border-bottom: 4px solid @site.PrimaryColor">@item.SerialNumber</h1>
+
+
+        </div>
+}
+
+@code {
+    private SiteViewModel? site;
+    private ItemViewModel? item;
+
+    [Parameter]
+    public int? siteID { get; set; }
+    [Parameter]
+    public int itemID{ get; set; }
+
+    protected override async Task OnInitializedAsync()
+    {
+        try
+        {
+            var client = ClientFactory.CreateClient("CollectorRegistry.AnonymousServerAPI");
+            site = await client.GetFromJsonAsync<SiteViewModel>("api/Site/" + siteID);
+        }
+        catch (Exception exception)
+        {
+            throw exception;
+        }
+    }
+}
