@@ -7,7 +7,7 @@
 
 @if (item != null)
 {
-        <div style="border-bottom: 4px solid @site.SecondaryColor">
+        <div>
 
             <h1 style="border-bottom: 4px solid @site.PrimaryColor">@item.SerialNumber</h1>
 
@@ -30,6 +30,7 @@
         {
             var client = ClientFactory.CreateClient("CollectorRegistry.AnonymousServerAPI");
             site = await client.GetFromJsonAsync<SiteViewModel>("api/Site/" + siteID);
+            item = await client.GetFromJsonAsync<ItemViewModel>("api/Item/" + itemID);
         }
         catch (Exception exception)
         {
