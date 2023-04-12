@@ -2,6 +2,7 @@
 @using CollectorRegistry.Shared
 @using CollectorRegistry.Shared.ViewModels;
 @inject IHttpClientFactory ClientFactory
+@inject NavigationManager NavManager
 
 <PageTitle>Item Page</PageTitle>
 
@@ -31,6 +32,17 @@
             var client = ClientFactory.CreateClient("CollectorRegistry.AnonymousServerAPI");
             site = await client.GetFromJsonAsync<SiteViewModel>("api/Site/" + siteID);
             item = await client.GetFromJsonAsync<ItemViewModel>("api/Item/" + itemID);
+
+            if (item.SiteID != siteID)
+            {
+                // item does not belong to site
+                // error message and/or redirect
+                // not a security issue because both the item and the site are publicly available separately
+
+                NavManager.NavigateTo("/site/" + siteID.ToString());
+
+            }
+
         }
         catch (Exception exception)
         {
