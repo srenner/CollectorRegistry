@@ -50,6 +50,7 @@ namespace CollectorRegistry.Server.Controllers
             return result;
         }
 
+
         // GET: api/<ItemController>
         [HttpGet]
         public IEnumerable<string> Get()
@@ -59,9 +60,10 @@ namespace CollectorRegistry.Server.Controllers
 
         // GET api/<ItemController>/5
         [HttpGet("{id}")]
-        public string Get(int id)
+        public async Task<Item> Get(int id)
         {
-            throw new NotImplementedException();
+            var svc = new ItemDataService(_itemRepo);
+            return await svc.GetItemByID(id);
         }
 
         // POST api/<ItemController>

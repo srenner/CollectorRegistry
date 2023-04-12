@@ -12,14 +12,19 @@ namespace CollectorRegistry.Server.Services
         private readonly IItemRepository _itemRepo;
         private int _siteID = 0;
 
-        public ItemDataService(IItemRepository itemRepo, int siteID)
+        public ItemDataService(IItemRepository itemRepo, int? siteID = null)
         {
             _itemRepo = itemRepo;
-            _siteID = siteID;
+            _siteID = siteID.HasValue ? siteID.Value : 0;
+        }
+
+        public async Task<Item> GetItemByID(int itemID)
+        {
+            return await _itemRepo.GetItemByID(itemID);
         }
 
         /// <summary>
-        /// 
+        /// Typically called from SerialBox.razor based on user input
         /// </summary>
         /// <param name="searchText"></param>
         /// <returns>an Item if found, null if not found</returns>
