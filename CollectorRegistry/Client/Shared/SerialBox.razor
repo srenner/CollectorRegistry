@@ -2,6 +2,8 @@
 @using CollectorRegistry.Shared.ResultModels;
 @using CollectorRegistry.Shared.ViewModels;
 @inject IHttpClientFactory ClientFactory
+@inject NavigationManager NavManager
+
 
 @if(Site != null)
 {
@@ -25,7 +27,7 @@
     {
         if(findResult.IsFound)
         {
-            <div>found @findResult.Item.ItemID</div>
+            NavManager.NavigateTo("/site/" + Site.SiteID.ToString() + "/item/" + findResult.Item?.ItemID.ToString());
         }
         else
         {
