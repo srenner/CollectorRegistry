@@ -12,6 +12,6 @@ namespace CollectorRegistry.Shared.ResultModels
         public bool IsFound { get; set; }
         public bool IsPatternMatch { get; set; }
         public string SearchText { get; set; }
-        public ItemViewModel Item { get; set; }
+        public ItemViewModel? Item { get; set; }
     }
 }

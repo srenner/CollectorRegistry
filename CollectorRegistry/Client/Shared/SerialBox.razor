@@ -87,7 +87,21 @@
 
     private async Task FindItem()
     {
-        findResult = await anonymousClient.GetFromJsonAsync<ItemFindResultModel>("api/Item/" + SiteID.ToString() + "/find/" + serialSearchText);
+        if(serialSearchText.Length > 0)
+        {
+            findResult = await anonymousClient.GetFromJsonAsync<ItemFindResultModel>("api/Item/" + SiteID.ToString() + "/find/" + serialSearchText);
+        }
+        else
+        {
+            findResult = new ItemFindResultModel
+            {
+                IsFound = false,
+                IsPatternMatch = false,
+                Item = null,
+                SearchText = ""
+            };
+        }
+
     }
 
     private async Task AddItem()
