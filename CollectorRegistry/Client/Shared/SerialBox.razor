@@ -46,13 +46,22 @@
                         {
                             <li>Ends with @Site.SerialNumberEndsWith</li>
                         }
-                        @if(this.Site.SerialNumberMinLength.HasValue)
+
+
+                        @if( this.Site.SerialNumberMinLength.HasValue &&  this.Site.SerialNumberMinLength == this.Site.SerialNumberMaxLength)
                         {
-                            <li>At least @Site.SerialNumberMinLength characters</li>
+                            <li>Exactly @Site.SerialNumberMinLength characters</li>
                         }
-                        @if(this.Site.SerialNumberMaxLength.HasValue)
+                        else
                         {
-                            <li>At most @Site.SerialNumberMaxLength characters</li>
+                            @if (this.Site.SerialNumberMinLength.HasValue)
+                            {
+                                <li>At least @Site.SerialNumberMinLength characters</li>
+                            }
+                            @if (this.Site.SerialNumberMaxLength.HasValue)
+                            {
+                                <li>At most @Site.SerialNumberMaxLength characters</li>
+                            }
                         }
                         @if(this.Site.SerialNumberHint?.Length > 0)
                         {
