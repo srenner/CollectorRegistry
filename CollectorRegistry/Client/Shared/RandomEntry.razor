@@ -4,19 +4,29 @@
 @inject IHttpClientFactory ClientFactory
 
 
-<div class="alert alert-secondary mt-4">
-    <h3>Here is a random entry for site @SiteID</h3>
-    @if(entry != null)
-    {
-        <p>@entry.Comments</p>
-    }
-</div>
+@if(entry != null && site != null)
+{
+    <div class="card mt-3 mb-3">
+        <h5 class="card-header fw-bold" style="background-color: @site.SecondaryColor; color: @site.PrimaryColor">
+            <span>RANDOM ENTRY</span>
+        </h5>
+        <div class="card-body">
+            <h5 class="card-title d-none">oh heck</h5>
+            <p class="card-text">@entry.Comments</p>
+            <a href="#" class="btn btn-primary">
+                spinny
+            </a>
+        </div>
+    </div>
+}
+
 
 @code {
     [Parameter]
     public int SiteID { get; set; }
 
     EntryViewModel? entry;
+    SiteViewModel? site;
 
     protected override async Task OnInitializedAsync()
     {
@@ -24,6 +34,7 @@
         {
             var client = ClientFactory.CreateClient("CollectorRegistry.AnonymousServerAPI");
             entry = await client.GetFromJsonAsync<EntryViewModel>("api/Entry/" + SiteID + "/random");
+            site = await client.GetFromJsonAsync<SiteViewModel>("api/Site/" + SiteID);
         }
         catch (Exception exception)
         {
