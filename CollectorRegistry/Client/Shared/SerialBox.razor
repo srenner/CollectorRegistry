@@ -31,47 +31,54 @@
         }
         else
         {
-            if(findResult.IsPatternMatch)
-            {
-                <div>Did not find this @Site.ItemNickname. Would you like to add it? [<button type="button" class="btn btn-link" @onclick="AddItem">yes</button>/<button type="button" class="btn btn-link" @onclick="() => { findResult = null; }">no</button>] </div>
-            }
-            else
-            {
-                <div>
-                    <p>Invalid entry. Here are the basic rules:</p>
-                    <ul>
-                        @if(this.Site.SerialNumberStartsWith?.Length > 0)
-                        {
-                            <li>Starts with @Site.SerialNumberStartsWith</li>
-                        }
-                        @if(this.Site.SerialNumberEndsWith?.Length > 0)
-                        {
-                            <li>Ends with @Site.SerialNumberEndsWith</li>
-                        }
+
+            <div class="d-flex justify-content-center">
 
 
-                        @if( this.Site.SerialNumberMinLength.HasValue &&  this.Site.SerialNumberMinLength == this.Site.SerialNumberMaxLength)
-                        {
-                            <li>Exactly @Site.SerialNumberMinLength characters</li>
-                        }
-                        else
-                        {
-                            @if (this.Site.SerialNumberMinLength.HasValue)
+                @if(findResult.IsPatternMatch)
+                {
+                    <div>Did not find this @Site.ItemNickname. Would you like to add it? [<button type="button" class="btn btn-link btn-sm" @onclick="AddItem">yes</button>/<button type="button" class="btn btn-link btn-sm" @onclick="() => { findResult = null; }">no</button>]</div>
+                }
+                else
+                {
+                    <div>
+                        <p>Invalid entry. Here are the basic rules:</p>
+                        <ul>
+                            @if(this.Site.SerialNumberStartsWith?.Length > 0)
                             {
-                                <li>At least @Site.SerialNumberMinLength characters</li>
+                                <li>Starts with @Site.SerialNumberStartsWith</li>
                             }
-                            @if (this.Site.SerialNumberMaxLength.HasValue)
+                            @if(this.Site.SerialNumberEndsWith?.Length > 0)
                             {
-                                <li>At most @Site.SerialNumberMaxLength characters</li>
+                                <li>Ends with @Site.SerialNumberEndsWith</li>
                             }
-                        }
-                        @if(this.Site.SerialNumberHint?.Length > 0)
-                        {
-                            <li>Example hint: @Site.SerialNumberHint</li>
-                        }
-                    </ul>
-                </div>
-            }
+
+
+                            @if( this.Site.SerialNumberMinLength.HasValue &&  this.Site.SerialNumberMinLength == this.Site.SerialNumberMaxLength)
+                            {
+                                <li>Exactly @Site.SerialNumberMinLength characters</li>
+                            }
+                            else
+                            {
+                                @if (this.Site.SerialNumberMinLength.HasValue)
+                                {
+                                    <li>At least @Site.SerialNumberMinLength characters</li>
+                                }
+                                @if (this.Site.SerialNumberMaxLength.HasValue)
+                                {
+                                    <li>At most @Site.SerialNumberMaxLength characters</li>
+                                }
+                            }
+                            @if(this.Site.SerialNumberHint?.Length > 0)
+                            {
+                                <li>Example hint: @Site.SerialNumberHint</li>
+                            }
+                        </ul>
+                    </div>
+                }
+
+
+            </div>
         }
     }
 }
