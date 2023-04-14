@@ -68,12 +68,17 @@ namespace CollectorRegistry.Server.Controllers
 
         // POST api/<ItemController>
         [HttpPost]
-        public async Task Post([FromBody] ItemViewModel item)
+        public async Task<ItemViewModel> Post([FromBody] ItemViewModel item)
         {
             if(item.SiteID > 0)
             {
                 var svc = new ItemDataService(_itemRepo, item.SiteID);
-                await svc.AddItem(item.SerialNumber);
+                var newItem = await svc.AddItem(item.SerialNumber);
+                return newItem.ToViewModel();
+            }
+            else
+            {
+                throw new NotImplementedException();
             }
         }
 

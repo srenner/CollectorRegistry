@@ -126,6 +126,7 @@
     {
         var postBody = new ItemViewModel { SiteID = SiteID, SerialNumber = serialSearchText };
         using var response = await anonymousClient.PostAsJsonAsync("api/Item", postBody);
+        string stop = "stop";
     }
 
 }
