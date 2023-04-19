@@ -4,7 +4,6 @@
 @inject IHttpClientFactory ClientFactory
 @inject NavigationManager NavManager
 
-
 @if(Site != null)
 {
     <div>
@@ -31,10 +30,7 @@
         }
         else
         {
-
             <div class="d-flex justify-content-center">
-
-
                 @if(findResult.IsPatternMatch)
                 {
                     <div>Did not find this @Site.ItemNickname. Would you like to add it? [<button type="button" class="btn btn-link btn-sm" @onclick="AddItem">yes</button>/<button type="button" class="btn btn-link btn-sm" @onclick="() => { findResult = null; }">no</button>]</div>
@@ -52,8 +48,6 @@
                             {
                                 <li>Ends with @Site.SerialNumberEndsWith</li>
                             }
-
-
                             @if( this.Site.SerialNumberMinLength.HasValue &&  this.Site.SerialNumberMinLength == this.Site.SerialNumberMaxLength)
                             {
                                 <li>Exactly @Site.SerialNumberMinLength characters</li>
@@ -76,8 +70,6 @@
                         </ul>
                     </div>
                 }
-
-
             </div>
         }
     }
@@ -119,14 +111,19 @@
                 SearchText = ""
             };
         }
-
     }
 
     private async Task AddItem()
     {
         var postBody = new ItemViewModel { SiteID = SiteID, SerialNumber = serialSearchText };
-        using var response = await anonymousClient.PostAsJsonAsync("api/Item", postBody);
-        string stop = "stop";
+        var response = await anonymousClient.PostAsJsonAsync("api/Item", postBody);
+        if(response.IsSuccessStatusCode)
+        {
+
+            var itemID = await response.Content.ReadAsStringAsync();
+
+            NavManager.NavigateTo("/site/" + SiteID.ToString() + "/item/" + itemID);
+        }
     }
 
 }
