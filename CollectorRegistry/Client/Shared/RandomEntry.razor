@@ -9,13 +9,11 @@
     <div class="card mt-3 mb-3">
         <h5 class="card-header fw-bold" style="background-color: @site.SecondaryColor; color: @site.PrimaryColor">
             <span>RANDOM ENTRY</span>
+            <span class="oi oi-reload small ms-3" style="cursor: pointer" aria-hidden="true" @onclick="() => LoadRandomEntry()"></span>
         </h5>
         <div class="card-body">
             <h5 class="card-title d-none">oh heck</h5>
             <p class="card-text">@entry.Comments</p>
-            <a href="#" class="btn btn-primary">
-                spinny
-            </a>
         </div>
     </div>
 }
@@ -33,13 +31,22 @@
         try
         {
             var client = ClientFactory.CreateClient("CollectorRegistry.AnonymousServerAPI");
-            entry = await client.GetFromJsonAsync<EntryViewModel>("api/Entry/" + SiteID + "/random");
+            await LoadRandomEntry(client);
             site = await client.GetFromJsonAsync<SiteViewModel>("api/Site/" + SiteID);
         }
         catch (Exception exception)
         {
             throw exception;
         }
+    }
+
+    private async Task LoadRandomEntry(HttpClient? client = null)
+    {
+        if(client == null)
+        {
+            client = ClientFactory.CreateClient("CollectorRegistry.AnonymousServerAPI");
+        }
+        entry = await client.GetFromJsonAsync<EntryViewModel>("api/Entry/" + SiteID + "/random");
     }
 
 }
