@@ -21,6 +21,7 @@ namespace CollectorRegistry.Server.Repos
                 return await _context.Entries
                     .Where(w => w.Item.SiteID == siteID)
                     .Where(w => w.EntryStatusID == Enum.EntryStatusEnum.Complete.ID)
+                    .OrderBy(o => Guid.NewGuid())
                     .Take(1).FirstOrDefaultAsync();
             }
         }
