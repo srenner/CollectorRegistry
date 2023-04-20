@@ -14,12 +14,20 @@ namespace CollectorRegistry.Server.Repos
             _context = context;
         }
 
-        public async Task<Entry> GetRandomEntry(int siteID, int statusID)
+        public async Task<Entry> GetRandomEntry(int? siteID, int statusID)
         {
-            if(true)
+            // TODO - ditch the if/else
+            if(siteID.HasValue)
             {
                 return await _context.Entries
                     .Where(w => w.Item.SiteID == siteID)
+                    .Where(w => w.EntryStatusID == Enum.EntryStatusEnum.Complete.ID)
+                    .OrderBy(o => Guid.NewGuid())
+                    .Take(1).FirstOrDefaultAsync();
+            }
+            else
+            {
+                return await _context.Entries
                     .Where(w => w.EntryStatusID == Enum.EntryStatusEnum.Complete.ID)
                     .OrderBy(o => Guid.NewGuid())
                     .Take(1).FirstOrDefaultAsync();
