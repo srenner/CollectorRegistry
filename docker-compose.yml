@@ -1,5 +1,5 @@
 version: '3.4'
-name: CollectorRegistry
+name: 'collector-registry'
 
 networks:
   # The presence of these objects is sufficient to define them
