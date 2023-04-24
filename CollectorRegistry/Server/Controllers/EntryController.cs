@@ -24,7 +24,17 @@ namespace CollectorRegistry.Server.Controllers
         public async Task<Entry> GetRandomEntry(int siteID)
         {
             var svc = new EntryDataService(_repo, siteID);
-            return await svc.GetRandomEntry();
+
+            var entry = await svc.GetRandomEntry();
+
+            if(entry != null)
+            {
+                return entry;
+            }
+            else
+            {
+                return new Entry();
+            }
         }
 
 

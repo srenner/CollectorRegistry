@@ -28,15 +28,10 @@
 
     protected override async Task OnInitializedAsync()
     {
-        try
         {
             var client = ClientFactory.CreateClient("CollectorRegistry.AnonymousServerAPI");
             await LoadRandomEntry(client);
             site = await client.GetFromJsonAsync<SiteViewModel>("api/Site/" + SiteID);
-        }
-        catch (Exception exception)
-        {
-            throw exception;
         }
     }
 
