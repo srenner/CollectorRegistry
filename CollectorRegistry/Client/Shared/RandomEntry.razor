@@ -4,7 +4,7 @@
 @inject IHttpClientFactory ClientFactory
 
 
-@if(entry != null && site != null)
+@if(entry != null && entry.EntryID > 0 && site != null)
 {
     <div class="card mt-3 mb-3">
         <h5 class="card-header fw-bold" style="background-color: @site.SecondaryColor; color: @site.PrimaryColor">
