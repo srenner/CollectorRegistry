@@ -2,13 +2,14 @@
 
 @using CollectorRegistry.Shared.ViewModels;
 @inject IHttpClientFactory ClientFactory
+@inject NavigationManager NavManager
 
 
 @if(entry != null && entry.EntryID > 0 && site != null)
 {
     <div class="card mt-3 mb-3">
         <h5 class="card-header fw-bold" style="background-color: @site.SecondaryColor; color: @site.PrimaryColor">
-            <span>RANDOM ENTRY</span>
+            <a href="" @onclick="@NavToItem" @onclick:preventDefault>RANDOM ENTRY</a>
             <span class="oi oi-reload small ms-3" style="cursor: pointer" aria-hidden="true" @onclick="() => LoadRandomEntry()"></span>
         </h5>
         <div class="card-body">
@@ -42,6 +43,11 @@
             client = ClientFactory.CreateClient("CollectorRegistry.AnonymousServerAPI");
         }
         entry = await client.GetFromJsonAsync<EntryViewModel>("api/Entry/" + SiteID + "/random");
+    }
+
+    private void NavToItem()
+    {
+        NavManager.NavigateTo("/site/" + site?.SiteID.ToString() + "/item/" + entry?.ItemID.ToString());
     }
 
 }

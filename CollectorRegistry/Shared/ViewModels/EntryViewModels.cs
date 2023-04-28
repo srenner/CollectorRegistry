@@ -12,8 +12,10 @@ namespace CollectorRegistry.Shared.ViewModels
         public int EntryID { get; set; }
 
         public int SiteID { get; set; }
-        
+
         public SiteViewModel Site { get; set; }
+
+        public int ItemID { get; set; }
 
         [DefaultValue(true)]
         public bool OnRoad { get; set; }
