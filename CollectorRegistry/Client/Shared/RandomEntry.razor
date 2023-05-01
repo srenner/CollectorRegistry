@@ -13,12 +13,10 @@
             <span class="oi oi-reload small ms-3" style="cursor: pointer" aria-hidden="true" @onclick="() => LoadRandomEntry()"></span>
         </h5>
         <div class="card-body">
-            <h5 class="card-title d-none">oh heck</h5>
             <p class="card-text">@entry.Comments</p>
         </div>
     </div>
 }
-
 
 @code {
     [Parameter]
@@ -49,5 +47,4 @@
     {
         NavManager.NavigateTo("/site/" + site?.SiteID.ToString() + "/item/" + entry?.ItemID.ToString());
     }
-
 }
