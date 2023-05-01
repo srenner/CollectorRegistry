@@ -4,10 +4,11 @@
 @inject IHttpClientFactory ClientFactory
 @inject NavigationManager NavManager
 
-<PageTitle>Item Page</PageTitle>
 
 @if (item != null)
 {
+    <PageTitle>@site.ItemNickname Registry @@ CollectorRegistry</PageTitle>
+
         <div>
 
             <h1 style="border-bottom: 4px solid @site.PrimaryColor">@item.SerialNumber</h1>
