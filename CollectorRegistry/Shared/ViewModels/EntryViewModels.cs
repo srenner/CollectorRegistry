@@ -37,8 +37,8 @@ namespace CollectorRegistry.Shared.ViewModels
         public string? Region { get; set; }
         public string? PostalCode { get; set; }
         public string? Country { get; set; }
-        public decimal? GetLat { get; set; }
-        public decimal? GetLong { get; set; }
+        public double? GeoLat { get; set; }
+        public double? GeoLong { get; set; }
 
         public int? Mileage { get; set; }
         public string? Comments { get; set; }
@@ -46,7 +46,10 @@ namespace CollectorRegistry.Shared.ViewModels
 
         public DateTime EntryDateTime { get; set; }
         public DateTime ActualEntryDateTime { get; set; }
-        public string? EntryIP { get; set; }
+        
+        //removed for security/privacy
+        //access the full Entry entity for this info
+        //public string? EntryIP { get; set; }
 
         [DefaultValue(false)]
         public bool IsDeleted { get; set; }

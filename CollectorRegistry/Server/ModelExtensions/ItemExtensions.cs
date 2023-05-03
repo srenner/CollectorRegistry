@@ -14,6 +14,11 @@ namespace CollectorRegistry.Server.ModelExtensions
             vm.SerialNumber = item.SerialNumber;
             vm.SiteID = item.SiteID;
 
+            if(item.Entries!= null) 
+            {
+                vm.Entries = item.Entries.ToViewModel();
+            }
+
             return vm;
         }
     }

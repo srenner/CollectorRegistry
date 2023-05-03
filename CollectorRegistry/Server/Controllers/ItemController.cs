@@ -60,10 +60,11 @@ namespace CollectorRegistry.Server.Controllers
 
         // GET api/<ItemController>/5
         [HttpGet("{id}")]
-        public async Task<Item> Get(int id)
+        public async Task<ItemViewModel> Get(int id)
         {
             var svc = new ItemDataService(_itemRepo);
-            return await svc.GetItemByID(id);
+            var item = await svc.GetItemByID(id);
+            return item.ToViewModel();
         }
 
         // POST api/<ItemController>

@@ -12,5 +12,7 @@ namespace CollectorRegistry.Shared.ViewModels
         public int SiteID { get; set; }
         public string SerialNumber { get; set; }
         public string? Comment { get; set; }
+
+        public List<EntryViewModel> Entries { get; set; }
     }
 }
