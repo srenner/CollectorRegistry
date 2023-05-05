@@ -14,10 +14,12 @@
     </header>
 
 
+    @item.Entries.Count
 
-
-
-    <div>@item</div>
+    @foreach(var entry in item.Entries.OrderByDescending(o => o.EntryDateTime))
+    {
+        <Entry EntryVM="entry" SiteVM="site" />
+    }
 
 }
 

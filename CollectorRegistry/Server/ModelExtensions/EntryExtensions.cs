@@ -17,6 +17,7 @@ namespace CollectorRegistry.Server.ModelExtensions
             vm.EntryDateTime = entry.EntryDateTime;
             vm.EntryID = entry.EntryID;
             vm.ForSale = entry.ForSale;
+            vm.GeoDescription = entry.GeoDescription;
             vm.GeoLat = entry.GeoLat;
             vm.GeoLong = entry.GeoLong;
             vm.IsDeleted = entry.IsDeleted;

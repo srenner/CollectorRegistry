@@ -1,0 +1,52 @@
+﻿@* Displays a single entry for a site *@
+
+@using CollectorRegistry.Shared.ViewModels;
+@inject IHttpClientFactory ClientFactory
+@inject NavigationManager NavManager
+
+
+@if (EntryVM != null && EntryVM.EntryID > 0)
+{
+    <div class="card mt-3 mb-3">
+        <h5 class="card-header fw-bold" style="background-color: @SiteVM.SecondaryColor; color: @SiteVM.PrimaryColor">
+            <span>@EntryVM.EntryDateTime.ToShortDateString()</span>
+            @if(EntryVM.GeoDescription.Length > 0)
+            {
+                <span class="ms-2 me-2">&bull;</span><span>@EntryVM.GeoDescription</span>    
+            }
+        </h5>
+        <div class="card-body">
+            <p class="card-text">@EntryVM.Comments</p>
+        </div>
+    </div>
+}
+
+@code {
+    [Parameter]
+    public EntryViewModel EntryVM { get; set; }
+
+    [Parameter]
+    public SiteViewModel? SiteVM { get; set; }
+
+    protected override async Task OnInitializedAsync()
+    {
+        var client = ClientFactory.CreateClient("CollectorRegistry.AnonymousServerAPI");
+    }
+
+    private async Task LoadEntry(HttpClient? client = null)
+    {
+        if (client == null)
+        {
+            client = ClientFactory.CreateClient("CollectorRegistry.AnonymousServerAPI");
+        }
+        if(EntryVM?.SiteID > 0)
+        {
+            EntryVM = await client.GetFromJsonAsync<EntryViewModel>("api/Entry/" + EntryVM.SiteID.ToString());
+        }
+        else
+        {
+            // :(
+        }
+    }
+
+}

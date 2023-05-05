@@ -39,6 +39,7 @@ namespace CollectorRegistry.Shared.ViewModels
         public string? Country { get; set; }
         public double? GeoLat { get; set; }
         public double? GeoLong { get; set; }
+        public string GeoDescription { get; set; }
 
         public int? Mileage { get; set; }
         public string? Comments { get; set; }
