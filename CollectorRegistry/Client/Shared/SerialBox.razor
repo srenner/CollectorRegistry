@@ -116,7 +116,7 @@
 
     private async Task AddItem()
     {
-        var postBody = new ItemViewModel { SiteID = SiteID, SerialNumber = serialSearchText };
+        var postBody = new ItemViewModel { SiteID = SiteID, SerialNumber = serialSearchText, Entries = new List<EntryViewModel>() };
         var response = await anonymousClient.PostAsJsonAsync("api/Item", postBody);
         if(response.IsSuccessStatusCode)
         {
