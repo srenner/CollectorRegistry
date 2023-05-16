@@ -69,25 +69,24 @@ namespace CollectorRegistry.Server.Controllers
 
         // POST api/<ItemController>
         [HttpPost]
-        public async Task<HttpResponseMessage> Post([FromBody] ItemViewModel item)
+        public async Task<int> Post([FromBody] ItemViewModel item)
         {
             if(item.SiteID > 0)
             {
                 var svc = new ItemDataService(_itemRepo, item.SiteID);
                 var newItem = await svc.AddItem(item.SerialNumber);
-                return new HttpResponseMessage
+                var msg = new HttpResponseMessage
                 {
                     StatusCode = System.Net.HttpStatusCode.OK,
                     Content = new StringContent(newItem.ItemID.ToString())
                 };
+
+                return newItem.ItemID;
+
             }
             else
             {
-                return new HttpResponseMessage
-                {
-                    StatusCode = System.Net.HttpStatusCode.BadRequest,
-                    Content = new StringContent("SiteID not found in request")
-                };
+                return 0;
             }
         }
 
