@@ -13,8 +13,10 @@
         <h1 style="border-bottom: 4px solid @site.PrimaryColor">@item.SerialNumber</h1>
     </header>
 
+    <button class="btn btn-primary">
+        <span>Add Registry Entry</span>
 
-    @item.Entries.Count
+    </button>
 
     @foreach(var entry in item.Entries.OrderByDescending(o => o.EntryDateTime))
     {
