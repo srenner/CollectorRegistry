@@ -9,11 +9,12 @@
 {
     <div class="card mt-3 mb-3">
         <h5 class="card-header fw-bold" style="background-color: @site.SecondaryColor; color: @site.PrimaryColor">
-            <a href="" @onclick="@NavToItem" @onclick:preventDefault>RANDOM ENTRY</a>
 
+            <span>RANDOM ENTRY</span>
+            
             <span class="ms-2 me-2">&bull;</span>
 
-            <span>@entry?.SerialNumber</span>
+            <a href="" @onclick="@NavToItem" @onclick:preventDefault>@entry?.SerialNumber</a>
 
             <span class="oi oi-reload small ms-3" style="cursor: pointer" aria-hidden="true" @onclick="() => LoadRandomEntry()"></span>
         </h5>
