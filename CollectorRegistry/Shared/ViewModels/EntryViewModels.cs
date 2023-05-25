@@ -32,6 +32,9 @@ namespace CollectorRegistry.Shared.ViewModels
 
 
 
+        public string? SerialNumber { get; set; }
+
+
         public string? Owner { get; set; }
         public string? City { get; set; }
         public string? Region { get; set; }

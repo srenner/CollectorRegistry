@@ -20,6 +20,7 @@ namespace CollectorRegistry.Server.Repos
             if(siteID.HasValue)
             {
                 return await _context.Entries
+                    .Include(i => i.Item)
                     .Where(w => w.Item.SiteID == siteID)
                     .Where(w => w.EntryStatusID == Enum.EntryStatusEnum.Complete.ID)
                     .OrderBy(o => Guid.NewGuid()) //randomness
@@ -28,6 +29,7 @@ namespace CollectorRegistry.Server.Repos
             else
             {
                 return await _context.Entries
+                    .Include(i => i.Item)
                     .Where(w => w.EntryStatusID == Enum.EntryStatusEnum.Complete.ID)
                     .OrderBy(o => Guid.NewGuid()) //randomness
                     .Take(1).FirstOrDefaultAsync();

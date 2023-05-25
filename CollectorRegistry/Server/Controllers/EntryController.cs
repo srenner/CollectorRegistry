@@ -1,7 +1,9 @@
 ﻿using CollectorRegistry.Server.AggregatesModel.EntryAggregate;
 using CollectorRegistry.Server.Repos;
 using CollectorRegistry.Server.Services;
+using CollectorRegistry.Shared.ViewModels;
 using Microsoft.AspNetCore.Mvc;
+using CollectorRegistry.Server.ModelExtensions;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
@@ -21,11 +23,11 @@ namespace CollectorRegistry.Server.Controllers
 
         // GET: api/<EntryController>/1/random
         [HttpGet("{siteID}/random")]
-        public async Task<Entry> GetRandomEntry(int siteID)
+        public async Task<EntryViewModel> GetRandomEntry(int siteID)
         {
             var svc = new EntryDataService(_repo, siteID);
 
-            var entry = await svc.GetRandomEntry();
+            var entry = svc.GetRandomEntry().Result.ToViewModel();
 
             if(entry != null)
             {
@@ -33,7 +35,7 @@ namespace CollectorRegistry.Server.Controllers
             }
             else
             {
-                return new Entry();
+                return new EntryViewModel();
             }
         }
 

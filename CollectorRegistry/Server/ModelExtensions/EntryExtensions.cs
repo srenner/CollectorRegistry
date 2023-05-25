@@ -30,6 +30,9 @@ namespace CollectorRegistry.Server.ModelExtensions
             vm.Region = entry.Region;
             vm.SiteID = entry.Item?.SiteID ?? 0;
             vm.TransactionPrice = entry.TransactionPrice;
+
+            vm.SerialNumber = entry.Item?.SerialNumber ?? "";
+
             return vm;
         }
 
