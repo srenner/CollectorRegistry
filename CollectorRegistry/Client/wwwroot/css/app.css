@@ -1,5 +1,13 @@
 @import url('open-iconic/font/css/open-iconic-bootstrap.min.css');
 
+a {
+    text-decoration: none;
+}
+
+a:hover {
+    text-decoration: underline;
+}
+
 html, body {
     font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
 }
