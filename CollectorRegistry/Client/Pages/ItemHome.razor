@@ -18,6 +18,15 @@
 
     </button>
 
+
+    <div>
+        <ItemMap/>
+    </div>
+    <hr />
+    <div>
+        <ItemTimeline/>
+    </div>
+
     @foreach(var entry in item.Entries.OrderByDescending(o => o.EntryDateTime))
     {
         <Entry EntryVM="entry" SiteVM="site" />
