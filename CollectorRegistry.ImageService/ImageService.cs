@@ -56,7 +56,7 @@ namespace CollectorRegistry.ImageService
                                 _logger.LogDebug("Ping success. Establishing connection with RabbitMQ.");
                                 //todo investigate why we can't connect right away and why recovery fails in this scenario
                                 //possible issue with docker
-                                await Task.Delay(10000);
+                                await Task.Delay(10000); // 10s delay has proven to be reliable after good ping
                             }
                             else
                             {
@@ -92,8 +92,7 @@ namespace CollectorRegistry.ImageService
                                     _logger.LogDebug(message);
                                     channel.BasicAck(ea.DeliveryTag, false);
                                 };
-                                // this consumer tag identifies the subscription
-                                // when it has to be cancelled
+                                // this consumer tag identifies the subscription when a cancelation is requested
                                 string consumerTag = channel.BasicConsume("image-input", false, consumer);
 
                                 while (!cancellationToken.IsCancellationRequested)
@@ -122,11 +121,13 @@ namespace CollectorRegistry.ImageService
         private void OnStopping()
         {
             _connection.Close();
+            _logger.LogDebug("ImageService disconnected from message queue");
         }
 
         private void OnStopped()
         {
-            // ...
+            // bye!
+            _logger.LogDebug("ImageService finished OnStopped()");
         }
     }
 }
