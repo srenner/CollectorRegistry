@@ -13,10 +13,18 @@ namespace CollectorRegistry.ImageService.Settings
         /// Max W and H px of thumbnail image
         /// </summary>
         public int Thumb { get; set; }
+        
+        
         /// <summary>
-        /// Max W and H px of Medium size image (typically mobile)
+        /// Max W and H px of Small size image (typically mobile/phone)
+        /// </summary>
+        public int S { get; set; }
+
+        /// <summary>
+        /// Max W and H px of Medium size image (typically mobile/tablet)
         /// </summary>
         public int M { get; set; }
+        
         /// <summary>
         /// Max W and H px of Large size image (typically desktop browser)
         /// </summary>
